@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="/js/common.js"></script>
+    <script>
+        // 로그아웃 확인 팝업
+        function show () {
+            document.querySelector(".background").className = "background show";
+        }
+        function close () {
+            document.querySelector(".background").className = "background";
+        }
+        document.querySelector("#show").addEventListener('click', show);
+        document.querySelector("#close").addEventListener('click', close);
+    </script>
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+            let boardList = /*[[${boardList}]]*/
+        /*]]*/
+
+        let plus = 1
+
+        let boardId = 0
+
+        const getScrollTop = function () {
+            return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        };
+
+        const getDocumentHeight = function () {
+            const body = document.body;
+            const html = document.documentElement;
+            return Math.max(
+                body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
+            );
+        };
+
+
+
+        window.onscroll = function(e) {
+            if (plus < boardList.totalPages) {
+                if(getScrollTop() === getDocumentHeight() - window.innerHeight) {
+
+                    setTimeout(function() {
+                        let addScroll = document.getElementById("addScroll")
+                        if (!boardList.last) {
+                            plus += boardList.number + 1
+                            console.log(boardId)
+                            const reqUrl = "/scroll/?page=" + plus
+                            console.log(reqUrl)
+                            $.ajax({
+                                type: "get",
+                                url: reqUrl,
+                                success: function (result) {
+                                    console.log("ajax 성공")
+                                    console.log(result)
+
+                                    let output = ""
+
+                                    output += "<div class='max_box'>"
+
+                                        output += "<table class='main_board_box'>"
+                                        output += "<tr class='d-flex flex-wrap'>"
+                                    result.content.forEach(function (board) {
+                                        let image = board.photoList
+                                        output += "<td class='main_board'>"
+                                        output += "<a href='/board/"+board.boardId+"'>"
+                                        output += "<img class='main_board_img' src='/upload/"+image[0].boardFilename+"'>"
+                                        output += "</a>"
+                                        output += "</td>"
+                                    })
+                                        output += "</tr>"
+                                        output += "</table>"
+                                    output += "</div>"
+
+                                    console.log(output)
+
+                                    addScroll.innerHTML += output
+
+
+                                },
+                                error: function () {
+                                    alert("ajax 실패")
+                                }
+                            })
+
+                        }
+                        console.log("확인")
+                    }, 0)
+
+                }
+            }
+
+        }
+    </script>
+    <title>POLAROID</title>
+</head>
+<body>
+<!-- header -->
+<div class="header">
+    <div class="max_box_2 vertical_box">
+        <div class="header_logo vertical_mid">
+            <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/board/'" />
+        </div>
+        <div class="header_search_box vertical_mid">
+            <input class="header_search_input fs_16" type="text" placeholder="Search" />
+            <div class="header_search_btn">
+                <img class="header_search_btn_img" src="/image/search.png" />
+            </div>
+        </div>
+        <div class="header_right vertical_mid">
+            <!-- 채팅 -->
+            <div class="header_chat">
+                <img class="header_chat_img" src="/image/chat.png" />
+            </div>
+            <!-- 좋아요 모아보기 -->
+            <div class="header_like">
+                <img class="header_like_img" src="/image/like.png" />
+            </div>
+            <!-- 사용자 정보 -->
+            <div class="header_user" id="userToggleButton">
+                <img class="header_user_img" src="/image/user_default.png" />
+            </div>
+            <div class="header_user_toggle_box" id="userToggleMenu">
+                <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/mypage'" />
+                <input class="header_user_toggle_btn fs_14" id="show" type="button"  onclick="location.href='/logout'" value="로그아웃" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 로그아웃 확인 팝업 -->
+<!-- 해야함 -->
+<div class="background">
+    <div class="window">
+        <div class="popup">
+            <button id="close">팝업닫기</button>
+        </div>
+    </div>
+</div>
+<!-- 로그아웃 확인 팝업 -->
+<!-- header -->
+
+<div class="contents">
+    <div class="max_box pt_60">
+
+        <!-- 이부분 수정해야함. 아마 루프?. 예시. -->
+        <table class="main_board_box">
+            <tr class="d-flex flex-wrap">
+                <td class="main_board" th:each="board: ${boardList}">
+                    <a th:href="@{|/board/${board.boardId}|}">
+                        <img class="main_board_img" th:src="@{|/upload/${board.getPhotoList().get(0).getBoardFilename()}|}"/>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <!-- 이부분 수정해야함. 예시 -->
+
+        <!-- 맨 위로 가기 버튼 -->
+        <div class="up_btn" onclick="location.href='#'">
+            <img class="up_btn_img" src="/image/up_btn.png" />
+        </div>
+        <!-- 맨 위로 가기 버튼 -->
+
+
+
+    </div>
+
+
+    <section id="addScroll">
+    </section>
+</div>
+</body>
+</html>

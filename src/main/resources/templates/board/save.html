@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>save</h2>
+<form action="/board/save" method="post" enctype="multipart/form-data">
+    <input type="text" name="boardWriter" placeholder="작성자"><br>
+    <input type="text" name="boardContents" placeholder="내용"><br>
+    <input type="file" name="boardFile" multiple/><br>
+    <input type="submit" value="작성">
+</form>
+</body>
+</html>

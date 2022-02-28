@@ -18,18 +18,15 @@ public class CommentEntity extends BaseEntity{
     private Long id;
 
     @Column
-    private String commentWriter;
-
-    @Column
     private String commentContents;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
-    private BoardEntity boardEntity;
+    private BoardEntity boardId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private MemberEntity memberEntity;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private MemberEntity memberId;
 
     public static CommentEntity toCommentEntity(CommentSaveDTO commentSaveDTO) {
         CommentEntity commentEntity = new CommentEntity();

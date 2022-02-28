@@ -20,7 +20,7 @@ public class PhotoDetailDTO {
     public static PhotoDetailDTO toPhotoDetailDTO(PhotoEntity photoEntity) {
         PhotoDetailDTO photoDetailDTO = new PhotoDetailDTO();
         photoDetailDTO.setPhotoId(photoEntity.getId());
-        photoDetailDTO.setBoardId(photoEntity.getBoardEntity().getId());
+        photoDetailDTO.setBoardId(photoEntity.getBoardId().getId());
         photoDetailDTO.setBoardFilename(photoEntity.getBoardFilename());
         return photoDetailDTO;
     }

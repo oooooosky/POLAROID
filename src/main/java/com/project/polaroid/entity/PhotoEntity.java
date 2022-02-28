@@ -3,8 +3,6 @@ package com.project.polaroid.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +17,7 @@ public class PhotoEntity {
 
     @ManyToOne
     @JoinColumn(name = "board_id")
-    private BoardEntity boardEntity;
+    private BoardEntity boardId;
 
     @Column
     private String boardFilename;

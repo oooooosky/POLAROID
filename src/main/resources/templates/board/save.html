@@ -4,13 +4,40 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <body>
 <h2>save</h2>
-<form action="/board/save" method="post" enctype="multipart/form-data">
-    <input type="text" name="boardWriter" placeholder="작성자"><br>
-    <input type="text" name="boardContents" placeholder="내용"><br>
-    <input type="file" name="boardFile" multiple/><br>
-    <input type="submit" value="작성">
+<form action="/board/save" name="saveForm" method="post" enctype="multipart/form-data">
+    <input type="text" id="boardWriter" name="boardWriter" placeholder="작성자"><br>
+    <input type="text" id="boardContents" name="boardContents" placeholder="내용"><br>
+    <input id="avatars"  type="file" name="boardFile" multiple="multiple" accept="image/*" >
+    <div id="check"></div>
 </form>
+<!--<button onclick="fileCheck()">작성</button>-->
 </body>
+<script>
+
+    let check = document.getElementById("check")
+
+    const input = document.querySelector('#avatars');
+
+    // Listen for files selection
+    input.addEventListener('change', (e) => {
+        // Retrieve all files
+        const files = input.files;
+
+        // Check files count
+        if (files.length > 5) {
+            check.innerHTML = ""
+            alert(`5개 이하로 올려주세요.`);
+            return;
+        } else {
+            check.innerHTML = "<input type='submit' value='저장하기'/>"
+        }
+
+        // TODO: continue uploading on server
+    });
+
+
+</script>
 </html>

@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
             boardFile.transferTo(new File(savePath));
         }
         PhotoEntity photoEntity = new PhotoEntity();
-        photoEntity.setBoardEntity(br.findById(boardId).get());
+        photoEntity.setBoardId(br.findById(boardId).get());
         photoEntity.setBoardFilename(boardFilename);
         pr.save(photoEntity);
     }

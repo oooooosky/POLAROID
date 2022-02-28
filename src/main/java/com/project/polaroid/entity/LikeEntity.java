@@ -18,11 +18,11 @@ public class LikeEntity {
 
     @ManyToOne
     @JoinColumn(name = "board_id")
-    private BoardEntity boardEntity;
+    private BoardEntity boardId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private MemberEntity memberEntity;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private MemberEntity memberId;
 
     @Column
     private int likeStatus;

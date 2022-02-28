@@ -67,13 +67,6 @@ public class BoardController {
         return "redirect:/board/";
     }
 
-    @GetMapping("test")
-    public String test(Model model) {
-        List<BoardDetailDTO> boardDetailDTOList = bs.findAll();
-        model.addAttribute("boardList", boardDetailDTOList);
-        return "board/test";
-    }
-
     @GetMapping("{boardId}")
     public String findById(@PathVariable Long boardId, Model model) {
         System.out.println("boardId = " + boardId);
@@ -83,6 +76,12 @@ public class BoardController {
         model.addAttribute("imageSize", boardDetailDTO.getPhoto().size());
         System.out.println("boardDetailDTO.getPhoto().size() = " + boardDetailDTO.getPhoto().size());
         return "board/findById";
+    }
+
+    @GetMapping("search")
+    public String search(@PathVariable String keyword) {
+        System.out.println("keyword = " + keyword);
+        return null;
     }
 
 }

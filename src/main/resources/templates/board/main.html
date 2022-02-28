@@ -51,6 +51,7 @@
                     setTimeout(function() {
                         let addScroll = document.getElementById("addScroll")
                         if (!boardList.last) {
+                            console.log("boardList : ",boardList)
                             plus += boardList.number + 1
                             console.log(boardId)
                             const reqUrl = "/scroll/?page=" + plus
@@ -110,10 +111,14 @@
             <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/board/'" />
         </div>
         <div class="header_search_box vertical_mid">
-            <input class="header_search_input fs_16" type="text" placeholder="Search" />
-            <div class="header_search_btn">
-                <img class="header_search_btn_img" src="/image/search.png" />
-            </div>
+            <form action="/board/search" method="get">
+                <input class="header_search_input fs_16" name="keyword" type="text" placeholder="Search" />
+                <div class="header_search_btn">
+                    <button>
+                        <img class="header_search_btn_img" src="/image/search.png"/>
+                    </button>
+                </div>
+            </form>
         </div>
         <div class="header_right vertical_mid">
             <!-- 채팅 -->

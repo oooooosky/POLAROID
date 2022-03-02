@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface BoardService {
-    List<BoardDetailDTO> findAll();
 
     Long save(BoardSaveDTO boardSaveDTO);
 
@@ -20,4 +19,8 @@ public interface BoardService {
     void saveFile(Long boardId, MultipartFile boardFile) throws IOException;
 
     BoardDetailDTO findById(Long boardId);
+
+    Page<BoardPagingDTO> search(String keyword, Pageable pageable);
+
+//    List<BoardDetailDTO> findByTag(String keyword);
 }

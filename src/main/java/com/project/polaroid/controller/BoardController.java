@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -78,10 +80,37 @@ public class BoardController {
         return "board/findById";
     }
 
-    @GetMapping("search")
-    public String search(@PathVariable String keyword) {
+    @GetMapping("search/{keyword}")
+    public String search(@PathVariable String keyword, @PageableDefault(page =1) Pageable pageable, Model model) {
+        keyword = "#"+keyword;
         System.out.println("keyword = " + keyword);
-        return null;
+        Page<BoardPagingDTO> boardList = bs.search(keyword, pageable);
+        model.addAttribute("keyword", keyword);
+
+        model.addAttribute("boardList", boardList);
+
+        System.out.println("boardList.getContent() = " + boardList.getContent()); // 요청 페이지에 들어있는 데이터, toString이 없기 때문에 주소값이 출력
+        System.out.println("boardList.getTotalElements() = " + boardList.getTotalElements()); // 전체 글 갯수
+        System.out.println("boardList.getNumber() = " + boardList.getNumber()); // JPA 기준 요청 페이지
+        System.out.println("boardList.getTotalPages() = " + boardList.getTotalPages()); // 전체 페이지 갯수
+        System.out.println("boardList.getSize() = " + boardList.getSize()); // 한 페이지에 보여지는 글 갯수
+        System.out.println("boardList.hasPrevious() = " + boardList.hasPrevious()); // 이전 페이지 존재 여부
+        System.out.println("boardList.isFirst() = " + boardList.isFirst()); // 첫 페이지인지 여부
+        System.out.println("boardList.isLast() = " + boardList.isLast()); // 마지막 페이지인지 여부
+
+        return "board/search";
     }
+
+//    @PostMapping("tag")
+//    public ResponseEntity tag(@RequestParam String keyword) {
+//        System.out.println("keyword = " + keyword);
+//        List<BoardDetailDTO> boardDetailDTOList = bs.findByTag(keyword);
+//        if (boardDetailDTOList.size() != 0) {
+//            return new ResponseEntity(HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
+//    }
+    
 
 }

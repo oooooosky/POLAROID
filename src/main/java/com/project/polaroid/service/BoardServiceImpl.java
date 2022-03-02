@@ -5,6 +5,7 @@ import com.project.polaroid.dto.BoardPagingDTO;
 import com.project.polaroid.dto.BoardSaveDTO;
 import com.project.polaroid.dto.PhotoDetailDTO;
 import com.project.polaroid.entity.BoardEntity;
+import com.project.polaroid.entity.GoodsEntity;
 import com.project.polaroid.entity.PhotoEntity;
 import com.project.polaroid.page.PagingConst;
 import com.project.polaroid.repository.BoardRepository;
@@ -27,13 +28,6 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository br;
     private final PhotoRepository pr;
-
-    @Override
-    public List<BoardDetailDTO> findAll() {
-        List<BoardEntity> boardEntityList = br.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        List<BoardDetailDTO> boardDetailDTOList = BoardDetailDTO.toBoardDetailDTOList(boardEntityList);
-        return boardDetailDTOList;
-    }
 
     @Override
     public Long save(BoardSaveDTO boardSaveDTO) {
@@ -60,6 +54,29 @@ public class BoardServiceImpl implements BoardService {
     public BoardDetailDTO findById(Long boardId) {
         return BoardDetailDTO.toBoardDetailDTO(br.findById(boardId).get());
     }
+
+    @Override
+    public Page<BoardPagingDTO> search(String keyword, Pageable pageable) {
+        int page = pageable.getPageNumber();
+        page = (page == 1) ? 0 : (page - 1);
+        Page<BoardEntity> boardEntityList = br.findByBoardContentsContaining(keyword, PageRequest.of(page, PagingConst.SEARCH_PAGE_LIMIT, Sort.by(Sort.Direction.DESC, "id")));
+        Page<BoardPagingDTO> boardList = boardEntityList.map(
+                board -> new BoardPagingDTO(
+                        board.getId(),
+                        board.getBoardWriter(),
+                        board.getBoardContents(),
+                        PhotoDetailDTO.toPhotoDetailDTOList(board.getPhotoEntity()))
+        );
+        return boardList;
+    }
+
+//    @Override
+//    public List<BoardDetailDTO> findByTag(String keyword) {
+//        List<BoardEntity> boardEntityList = br.findByBoardContents(keyword);
+//        System.out.println("boardEntityList = " + boardEntityList);
+//        List<BoardDetailDTO> boardDetailDTOList = BoardDetailDTO.toBoardDetailDTOList(boardEntityList);
+//        return boardDetailDTOList;
+//    }
 
     @Override
     public Page<BoardPagingDTO> paging(Pageable pageable) {

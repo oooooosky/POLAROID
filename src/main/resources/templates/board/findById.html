@@ -164,23 +164,32 @@
 </body>
 <script>
     let content = document.getElementById("boardContents").value
-    console.log(content)
     let splitedArray = content.split(' ');
+    // let splitedArray = content.split('#');
+    console.log(splitedArray)
     let linkedContent = '';
     for (let word in splitedArray) {
         word = splitedArray[word];
+        console.log(word)
         if (word.indexOf('#') == 0) {
-            let reqUrl = "/board/search/" + word
-            word = '<a href='+reqUrl+'>' + word + '</a>';
+            // let reqUrl = "@{|/board/search/(keyword=" + word + ")|}"
+            let reqUrl = "/board/search/"+word.replace('#',"")
+            // word += '<button>'
+            // word += '<a href="'+reqUrl+'">' + word + '</a>';
+            // word += '</button>'
+            word = '<a href="'+reqUrl+'">' + word + '</a>';
+            console.log(reqUrl)
+            console.log(word)
+            // word = '<input type="button" id="tag_search' + i++ +'" name="keyword" value="' + word + '"/>';
         }
         linkedContent += word + ' ';
     }
     document.getElementById('contentElement').innerHTML = linkedContent;
     // content.innerHTML = linkedContent;
 
-    function tagSearch() {
+    addEventListener("click", function () {
 
-    }
+    })
 
 </script>
 

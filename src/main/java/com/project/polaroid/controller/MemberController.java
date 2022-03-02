@@ -43,6 +43,8 @@ public class MemberController {
     public String mypageForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         MemberEntity member=memberService.findById(principalDetails.getMember().getId());
         model.addAttribute("member",member);
+        // memberId를 갖고와야 하는곳에 위 3줄 내용을 추가해야함.
+
         ArrayList<Integer> followCount=followService.followCount(principalDetails.getMember().getId());
         System.out.println("MemberController.mypageForm");
         System.out.println(followCount.get(0));

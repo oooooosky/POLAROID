@@ -4,12 +4,10 @@ import com.project.polaroid.dto.BoardDetailDTO;
 import com.project.polaroid.dto.BoardPagingDTO;
 import com.project.polaroid.dto.BoardSaveDTO;
 import com.project.polaroid.dto.PhotoDetailDTO;
-import com.project.polaroid.entity.BoardEntity;
-import com.project.polaroid.entity.GoodsEntity;
-import com.project.polaroid.entity.MemberEntity;
-import com.project.polaroid.entity.PhotoEntity;
+import com.project.polaroid.entity.*;
 import com.project.polaroid.page.PagingConst;
 import com.project.polaroid.repository.BoardRepository;
+import com.project.polaroid.repository.LikeRepository;
 import com.project.polaroid.repository.MemberRepository;
 import com.project.polaroid.repository.PhotoRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +16,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +31,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository br;
     private final PhotoRepository pr;
     private final MemberRepository mr;
+    private final LikeRepository lr;
 
     @Override
     public Long save(BoardSaveDTO boardSaveDTO) {
@@ -72,6 +73,43 @@ public class BoardServiceImpl implements BoardService {
                         PhotoDetailDTO.toPhotoDetailDTOList(board.getPhotoEntity()))
         );
         return boardList;
+    }
+
+    @Override
+    public int findLike(Long b_id, Long m_id) {
+        BoardEntity boardId = br.findById(b_id).get();
+        MemberEntity memberId = mr.findById(m_id).get();
+        LikeEntity likeStatus = lr.findByBoardIdAndMemberId(boardId, memberId);
+        if (likeStatus!=null) {
+            int like = 1;
+            return like;
+        } else {
+            int like = 0;
+            return like;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int saveLike(Long b_id, Long m_id) {
+
+        BoardEntity boardId = br.findById(b_id).get();
+        MemberEntity memberId = mr.findById(m_id).get();
+        LikeEntity likeStatus = lr.findByBoardIdAndMemberId(boardId, memberId);
+
+        if (likeStatus==null) {
+            MemberEntity memberEntity = mr.findById(m_id).get();
+            BoardEntity boardEntity = br.findById(b_id).get();
+
+            LikeEntity likeEntity = LikeEntity.toLikeEntity(memberEntity, boardEntity);
+            lr.save(likeEntity);
+            return 1;
+        } else {
+            lr.deleteByBoardIdAndMemberId(boardId, memberId);
+            return 0;
+
+        }
+
     }
 
 //    @Override

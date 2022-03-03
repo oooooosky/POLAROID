@@ -24,7 +24,11 @@ public class LikeEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity memberId;
 
-    @Column
-    private int likeStatus;
+    public static LikeEntity toLikeEntity(MemberEntity memberEntity, BoardEntity boardEntity){
+        LikeEntity likeEntity = new LikeEntity();
+        likeEntity.setMemberId(memberEntity);
+        likeEntity.setBoardId(boardEntity);
+        return likeEntity;
+    }
 
 }

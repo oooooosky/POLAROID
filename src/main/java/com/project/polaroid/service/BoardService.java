@@ -22,5 +22,9 @@ public interface BoardService {
 
     Page<BoardPagingDTO> search(String keyword, Pageable pageable);
 
+    int findLike(Long boardId, Long memberId);
+
+    int saveLike(Long boardId, Long memberId);
+
 //    List<BoardDetailDTO> findByTag(String keyword);
 }

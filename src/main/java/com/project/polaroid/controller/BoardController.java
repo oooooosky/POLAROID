@@ -34,14 +34,13 @@ public class BoardController {
     private final MemberService memberService;
 
     @GetMapping
-    public String main(@PageableDefault(page = 1) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model, HttpSession session) {
+    public String main(@PageableDefault(page = 1) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         Page<BoardPagingDTO> boardList = bs.paging(pageable);
         model.addAttribute("boardList", boardList);
 
         MemberEntity member=memberService.findById(principalDetails.getMember().getId());
         System.out.println("member = " + member);
         model.addAttribute("member", member);
-        session.setAttribute("LoginNumber", member.getId());
 
 
         System.out.println("boardList.getContent() = " + boardList.getContent()); // 요청 페이지에 들어있는 데이터, toString이 없기 때문에 주소값이 출력
@@ -52,18 +51,6 @@ public class BoardController {
         System.out.println("boardList.hasPrevious() = " + boardList.hasPrevious()); // 이전 페이지 존재 여부
         System.out.println("boardList.isFirst() = " + boardList.isFirst()); // 첫 페이지인지 여부
         System.out.println("boardList.isLast() = " + boardList.isLast()); // 마지막 페이지인지 여부
-
-//        Long boardId = 1000000000000L;
-//
-//        for(BoardPagingDTO b: boardList) {
-//            if(b.getBoardId() <= boardId) {
-//                boardId = b.getBoardId();
-//            }
-//        }
-//
-//        System.out.println("boardId = " + boardId);
-//
-//        model.addAttribute("boardId", boardId);
 
         return "board/main";
     }
@@ -88,9 +75,17 @@ public class BoardController {
     }
 
     @GetMapping("{boardId}")
-    public String findById(@PathVariable Long boardId, Model model) {
+    public String findById(@PathVariable Long boardId, Model model, HttpSession session) {
+        System.out.println("삼세조회");
         System.out.println("boardId = " + boardId);
         BoardDetailDTO boardDetailDTO = bs.findById(boardId);
+
+        Long memberId = (Long)session.getAttribute("LoginNumber");
+        int likeStatus = bs.findLike(boardId, memberId);
+        System.out.println("likeStatus = " + likeStatus);
+        model.addAttribute("like",likeStatus);
+
+
         System.out.println("boardDetailDTO.getPhoto() = " + boardDetailDTO.getPhoto());
         model.addAttribute("board", boardDetailDTO);
         model.addAttribute("imageSize", boardDetailDTO.getPhoto().size());
@@ -120,6 +115,12 @@ public class BoardController {
 
         return "board/search";
     }
-    
+
+    @PostMapping("like")
+    public @ResponseBody int like(Long boardId, Long memberId) {
+        System.out.println("좋아요");
+        int result = bs.saveLike(boardId,memberId);
+        return result;
+    }
 
 }

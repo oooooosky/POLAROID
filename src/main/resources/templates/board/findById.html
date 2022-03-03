@@ -88,8 +88,10 @@
                 <!-- board detail contents 1 -->
                 <div class="board_detail_contents_1">
                     <div class="dis_inblock mr_15">
-                        <img class="board_detail_contents_1_like_img" onclick="likeCheck()" id="board-detail-like-btn" src="/image/like_default.png" />
+<!--                        <img class="board_detail_contents_1_like_img" onclick="likeCheck()" id="board-detail-like-btn" src="/image/like_default.png" />-->
+                        <img class="board_detail_contents_1_like_img" id="board-detail-like-btn" src="/image/like_default.png" />
                         <label class="fs_14 pt_2">486</label>
+                        <input type="hidden" id="like_check" th:value="${like}">
                     </div>
                     <div class="dis_inblock">
                         <img class="board_detail_contents_1_comment_img" onclick="commentCheck()" id="board-detail-comment-btn" src="/image/comment_default.png" />
@@ -115,12 +117,10 @@
                 <!-- board detail content 3 -->
                 <div class="board_detail_contents_3" id="board-detail-comment_box">
                     <div class="board_detail_contents_3_comment_1">
-<!--                        <form action="/comment/save" method="post" name="comment_saveForm">-->
                             <input type="hidden" id="boardId" name="boardId" th:value="${board.boardId}">
                             <input type="hidden" id="memberId" name="memberId" th:value="${session.LoginNumber}" />
                             <input class="board_detail_contents_3_comment_1_input fs_14" id="commentContents" type="text" placeholder="댓글 작성" value=""/>
                             <input class="board_detail_contents_3_comment_1_btn input_btn fs_14" type="button" id="commentSave" value="등록" />
-<!--                        </form>-->
                     </div>
                     <div class="board_detail_contents_3_comment_2" id="comment">
                         <!-- 댓글 목록 예시 -->
@@ -173,11 +173,11 @@
     let content = document.getElementById("boardContents").value
     let splitedArray = content.split(' ');
     // let splitedArray = content.split('#');
-    console.log(splitedArray)
+    // console.log(splitedArray)
     let linkedContent = '';
     for (let word in splitedArray) {
         word = splitedArray[word];
-        console.log(word)
+        // console.log(word)
         if (word.indexOf('#') == 0) {
             // let reqUrl = "@{|/board/search/(keyword=" + word + ")|}"
             let reqUrl = "/board/search/"+word.replace('#',"")
@@ -259,6 +259,45 @@
             }
         })
     }
+
+    $(document).ready(function () {
+        let likeVal = document.getElementById('like_check').value
+        const boardId = document.getElementById("boardId").value
+        const memberId = document.getElementById("memberId").value
+        // console.log(memberId);
+        // console.log(likeVal);
+        const likeImg = document.getElementById("board-detail-like-btn")
+
+        if (likeVal > 0) {
+            likeImg.src = "/image/like.png";
+        } else {
+            likeImg.src = "/image/like_default.png";
+        }
+        // 좋아요 버튼을 클릭 시 실행되는 코드
+        likeImg.addEventListener("click", function () {
+            $.ajax({
+                url: '/board/like',
+                type: 'POST',
+                data: {'boardId': boardId, 'memberId': memberId},
+                success: function (data) {
+                    if (data == 1) {
+                        $("#likeImg").attr("src", "/image/like.png");
+                        // location.href="/board/"+boardId;
+                        location.reload()
+
+                    } else {
+                        $("#likeImg").attr("src", "/image/like_default.png");
+                        // location.href="/board/"+boardId;
+                        location.reload()
+                    }
+                }, error: function () {
+                    console.log('오타 찾으세요')
+                }
+
+            });
+
+        });
+    });
 
 </script>
 

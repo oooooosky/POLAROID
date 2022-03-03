@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 <body>
 <h2>save</h2>
 <form action="/board/save" name="saveForm" method="post" enctype="multipart/form-data">
-    <input type="text" id="boardWriter" name="boardWriter" placeholder="작성자"><br>
+    <input type="hidden" id="memberId" name="memberId" placeholder="회원번호" th:value="${member.getId()}"><br>
     <input type="text" id="boardContents" name="boardContents" placeholder="내용"><br>
     <input id="avatars"  type="file" name="boardFile" multiple="multiple" accept="image/*" >
     <div id="check"></div>

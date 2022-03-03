@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardSaveDTO {
 
-    private String boardWriter;
+    private Long memberId;
     private String boardContents;
 
     private List<MultipartFile> boardFile;

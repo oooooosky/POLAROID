@@ -28,8 +28,10 @@ public class CommentEntity extends BaseEntity{
     @JoinColumn(name = "member_id")
     private MemberEntity memberId;
 
-    public static CommentEntity toCommentEntity(CommentSaveDTO commentSaveDTO) {
+    public static CommentEntity toCommentEntity(CommentSaveDTO commentSaveDTO, BoardEntity boardEntity, MemberEntity memberEntity) {
         CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setBoardId(boardEntity);
+        commentEntity.setMemberId(memberEntity);
         commentEntity.setCommentContents(commentSaveDTO.getCommentContents());
         return commentEntity;
     }

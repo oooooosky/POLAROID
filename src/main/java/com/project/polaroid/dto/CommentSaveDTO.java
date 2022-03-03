@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentSaveDTO {
 
+    private Long memberId;
     private Long boardId;
-    private String commentWriter;
+
     private String commentContents;
 
 }

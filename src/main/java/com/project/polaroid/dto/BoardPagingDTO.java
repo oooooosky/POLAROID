@@ -14,7 +14,7 @@ import java.util.List;
 public class BoardPagingDTO {
 
     private Long boardId;
-    private String boardWriter;
+    private String memberNickname;
     private String boardContents;
     private List<PhotoDetailDTO> photoList;
 

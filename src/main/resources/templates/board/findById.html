@@ -56,10 +56,11 @@
         <div class="board_detail_box">
             <div class="board_detail_top vertical_box">
                 <div class="vertical_mid board_detail_user">
-                    <img class="board_detail_user_img" src="/image/user_default.png" />
+                    <img class="board_detail_user_img" src="/image/user_default.png"/>
+<!--                    <img class="board_detail_user_img" src="/image/user_default.png" th:if="${board.memberFilename == null}"/>-->
                 </div>
                 <div class="vertical_mid">
-                    <label class="board_detail_name">닉네임</label>
+                    <label class="board_detail_name" th:text="${board.memberNickname}"></label>
                 </div>
             </div>
 
@@ -94,7 +95,7 @@
                         <img class="board_detail_contents_1_comment_img" onclick="commentCheck()" id="board-detail-comment-btn" src="/image/comment_default.png" />
                     </div>
                     <div class="dis_inblock board_detail_contents_1_date_time">
-                        <label class="fs_14 color_999"><span th:text="${board.createTime}"></span></label>
+                        <label class="fs_14 color_999"><span th:text="${#temporals.format(board.getCreateTime(), 'yyyy-mm-dd HH:mm')}"></span></label>
                     </div>
                 </div>
                 <!-- board detail content 1 -->
@@ -114,38 +115,44 @@
                 <!-- board detail content 3 -->
                 <div class="board_detail_contents_3" id="board-detail-comment_box">
                     <div class="board_detail_contents_3_comment_1">
-                        <input type="hidden" value="loginName" />
-                        <input class="board_detail_contents_3_comment_1_input fs_14" type="text" placeholder="댓글 작성" />
-                        <input class="board_detail_contents_3_comment_1_btn input_btn fs_14" type="button" value="등록" />
+<!--                        <form action="/comment/save" method="post" name="comment_saveForm">-->
+                            <input type="hidden" id="boardId" name="boardId" th:value="${board.boardId}">
+                            <input type="hidden" id="memberId" name="memberId" th:value="${session.LoginNumber}" />
+                            <input class="board_detail_contents_3_comment_1_input fs_14" id="commentContents" type="text" placeholder="댓글 작성" value=""/>
+                            <input class="board_detail_contents_3_comment_1_btn input_btn fs_14" type="button" id="commentSave" value="등록" />
+<!--                        </form>-->
                     </div>
-                    <div class="board_detail_contents_3_comment_2">
+                    <div class="board_detail_contents_3_comment_2" id="comment">
                         <!-- 댓글 목록 예시 -->
                         <table>
                             <tbody>
-                            <tr>
-                                <td class="comment_name">우럭아왜우럭</td>
-                                <td class="comment_text">오렌지먹은지얼마나오렌지</td>
-                                <td class="comment_date">2022-02-21 13:35</td>
-                                <td class="comment_delete_btn"></td>
+                            <tr th:each="comment: ${commentList}">
+                                <td class="comment_name" th:text="${comment.memberNickname}"></td>
+                                <td class="comment_text" th:text="${comment.getCommentContents()}"></td>
+                                <td class="comment_date" th:text="${#temporals.format(comment.getCreateTime(), 'MM-dd HH:mm')}"></td>
+<!--                                <button class="comment_delete_btn" th:if="${comment.memberEmail.equals(session['LoginEmail'])}">X</button>-->
+                                <td style="width: 20px" th:if="${session['LoginEmail'].equals(comment.memberEmail)}">
+                                    <button class="comment_delete_btn" th:onclick="commentDelete([[${comment.commentId}]])">X</button>
+                                </td>
                             </tr>
-                            <tr>
-                                <td class="comment_name">밥</td>
-                                <td class="comment_text">떡볶이, 곱창, 치킨, 피자, 회, 냉면, 삼겹살, 파스타, 닭발, 쭈꾸미, 햄버거, 감자튀김, 돈까스, 짬뽕, 족발, 보쌈, 튀김, 모밀, 라멘, 초밥, 우동</td>
-                                <td class="comment_date">2022-02-21 13:31</td>
-                                <td class="comment_delete_btn"></td>
-                            </tr>
-                            <tr>
-                                <td class="comment_name">loginName</td>
-                                <td class="comment_text">본인이 작성한 댓글만 삭제 가능</td>
-                                <td class="comment_date">2022-02-21 10:22</td>
-                                <td class="comment_delete_btn">X</td>
-                            </tr>
-                            <tr>
-                                <td class="comment_name">왕꿈트리</td>
-                                <td class="comment_text">로 아 들 어 와</td>
-                                <td class="comment_date">2022-02-21 09:04</td>
-                                <td class="comment_delete_btn"></td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td class="comment_name">밥</td>-->
+<!--                                <td class="comment_text">떡볶이, 곱창, 치킨, 피자, 회, 냉면, 삼겹살, 파스타, 닭발, 쭈꾸미, 햄버거, 감자튀김, 돈까스, 짬뽕, 족발, 보쌈, 튀김, 모밀, 라멘, 초밥, 우동</td>-->
+<!--                                <td class="comment_date">2022-02-21 13:31</td>-->
+<!--                                <td class="comment_delete_btn"></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="comment_name">loginName</td>-->
+<!--                                <td class="comment_text">본인이 작성한 댓글만 삭제 가능</td>-->
+<!--                                <td class="comment_date">2022-02-21 10:22</td>-->
+<!--                                <td class="comment_delete_btn">X</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="comment_name">왕꿈트리</td>-->
+<!--                                <td class="comment_text">로 아 들 어 와</td>-->
+<!--                                <td class="comment_date">2022-02-21 09:04</td>-->
+<!--                                <td class="comment_delete_btn"></td>-->
+<!--                            </tr>-->
                             </tbody>
                         </table>
                         <!-- 댓글 목록 예시 -->
@@ -178,8 +185,8 @@
             // word += '<a href="'+reqUrl+'">' + word + '</a>';
             // word += '</button>'
             word = '<a href="'+reqUrl+'">' + word + '</a>';
-            console.log(reqUrl)
-            console.log(word)
+            // console.log(reqUrl)
+            // console.log(word)
             // word = '<input type="button" id="tag_search' + i++ +'" name="keyword" value="' + word + '"/>';
         }
         linkedContent += word + ' ';
@@ -187,9 +194,71 @@
     document.getElementById('contentElement').innerHTML = linkedContent;
     // content.innerHTML = linkedContent;
 
-    addEventListener("click", function () {
+    const comment = document.getElementById("commentSave")
+    comment.addEventListener("click", function () {
+        let commentContents = document.getElementById("commentContents").value
+        let boardId = document.getElementById("boardId").value
+        let memberId = document.getElementById("memberId").value
+        if (!commentContents) {
+            alert("내용을 입력해주세요.")
+        } else {
+            // console.log("댓글내용 : ",commentContents)
+            // console.log("게시글번호 : ",boardId)
+            // console.log("회원번호 : ",memberId)
 
+            $.ajax({
+                type: "post",
+                url: "/comment/save",
+                data: {
+                    "memberId": memberId,
+                    "boardId": boardId,
+                    "commentContents": commentContents
+                },
+                dataType: "json",
+                success: function (result) {
+                    // console.log(result)
+                    // let output = ""
+                    // output += "<table>"
+                    // output += "<tbody>"
+                    // result.forEach(function (commentList) {
+                    //     output += "<tr>"
+                    //     output += "<td class='comment_name'>"+commentList.memberNickname +"</td>"
+                    //     output += "<td class='comment_text'>"+commentList.commentContents+"</td>"
+                    //     output += "<td class='comment_date'>"+commentList.createTime+"</td>"
+                    //     output += "<button class='comment_delete_btn'></button>"
+                    //     output += "</tr>"
+                    // })
+                    // output += "</tbody>"
+                    // output += "</table>"
+                    // let comment = document.getElementById("comment")
+                    // comment.innerHTML = output
+
+                    alert("댓글작성이 완료되었습니다.")
+                    location.reload()
+
+                },
+                error: function (result) {
+                    alert("ajax 실페")
+                }
+            })
+
+        }
     })
+
+    const commentDelete = (commentId) => {
+        const reqUrl = "/comment/" + commentId
+        $.ajax({
+            type: "delete",
+            url: reqUrl,
+            success: function () {
+                alert("댓글삭제가 완료되었습니다.")
+                location.reload()
+            },
+            error: function () {
+                alert("ajax 실패")
+            }
+        })
+    }
 
 </script>
 

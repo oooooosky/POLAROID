@@ -1,12 +1,16 @@
 package com.project.polaroid.controller;
 
+import com.project.polaroid.dto.CommentDetailDTO;
 import com.project.polaroid.dto.CommentSaveDTO;
 import com.project.polaroid.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,10 +19,17 @@ public class CommentController {
 
     private final CommentService cs;
 
-    @GetMapping("save")
-    public String save(@ModelAttribute CommentSaveDTO commentSaveDTO) {
+    @PostMapping("save")
+    public @ResponseBody List<CommentDetailDTO> save(@ModelAttribute CommentSaveDTO commentSaveDTO) {
         Long commentId = cs.save(commentSaveDTO);
-        return null;
+        List<CommentDetailDTO> commentList = cs.findAll(commentSaveDTO.getBoardId());
+        return commentList;
+    }
+
+    @DeleteMapping("{commentId}")
+    public ResponseEntity delete(@PathVariable Long commentId) {
+        cs.deleteById(commentId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

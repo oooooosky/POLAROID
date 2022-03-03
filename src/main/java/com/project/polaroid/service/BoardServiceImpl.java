@@ -6,9 +6,11 @@ import com.project.polaroid.dto.BoardSaveDTO;
 import com.project.polaroid.dto.PhotoDetailDTO;
 import com.project.polaroid.entity.BoardEntity;
 import com.project.polaroid.entity.GoodsEntity;
+import com.project.polaroid.entity.MemberEntity;
 import com.project.polaroid.entity.PhotoEntity;
 import com.project.polaroid.page.PagingConst;
 import com.project.polaroid.repository.BoardRepository;
+import com.project.polaroid.repository.MemberRepository;
 import com.project.polaroid.repository.PhotoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,10 +30,12 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository br;
     private final PhotoRepository pr;
+    private final MemberRepository mr;
 
     @Override
     public Long save(BoardSaveDTO boardSaveDTO) {
-        BoardEntity boardEntity = BoardEntity.toBoardEntity(boardSaveDTO);
+        MemberEntity memberEntity = mr.findById(boardSaveDTO.getMemberId()).get();
+        BoardEntity boardEntity = BoardEntity.toBoardEntity(boardSaveDTO, memberEntity);
         Long boardId = br.save(boardEntity).getId();
         return boardId;
     }
@@ -63,7 +67,7 @@ public class BoardServiceImpl implements BoardService {
         Page<BoardPagingDTO> boardList = boardEntityList.map(
                 board -> new BoardPagingDTO(
                         board.getId(),
-                        board.getBoardWriter(),
+                        board.getMemberId().getMemberNickname(),
                         board.getBoardContents(),
                         PhotoDetailDTO.toPhotoDetailDTOList(board.getPhotoEntity()))
         );
@@ -86,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
         Page<BoardPagingDTO> boardList = boardEntities.map(
                 board -> new BoardPagingDTO(
                         board.getId(),
-                        board.getBoardWriter(),
+                        board.getMemberId().getMemberNickname(),
                         board.getBoardContents(),
                         PhotoDetailDTO.toPhotoDetailDTOList(board.getPhotoEntity()))
         );

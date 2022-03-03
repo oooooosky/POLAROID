@@ -1,21 +1,28 @@
 package com.project.polaroid.controller;
 
+import com.project.polaroid.auth.PrincipalDetails;
 import com.project.polaroid.dto.BoardDetailDTO;
 import com.project.polaroid.dto.BoardPagingDTO;
 import com.project.polaroid.dto.BoardSaveDTO;
+import com.project.polaroid.dto.CommentDetailDTO;
+import com.project.polaroid.entity.MemberEntity;
 import com.project.polaroid.service.BoardService;
+import com.project.polaroid.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -24,11 +31,18 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService bs;
+    private final MemberService memberService;
 
     @GetMapping
-    public String main(@PageableDefault(page = 1) Pageable pageable, Model model) {
+    public String main(@PageableDefault(page = 1) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model, HttpSession session) {
         Page<BoardPagingDTO> boardList = bs.paging(pageable);
         model.addAttribute("boardList", boardList);
+
+        MemberEntity member=memberService.findById(principalDetails.getMember().getId());
+        System.out.println("member = " + member);
+        model.addAttribute("member", member);
+        session.setAttribute("LoginNumber", member.getId());
+
 
         System.out.println("boardList.getContent() = " + boardList.getContent()); // 요청 페이지에 들어있는 데이터, toString이 없기 때문에 주소값이 출력
         System.out.println("boardList.getTotalElements() = " + boardList.getTotalElements()); // 전체 글 갯수
@@ -55,13 +69,17 @@ public class BoardController {
     }
 
     @GetMapping("save")
-    public String saveForm() {
+    public String saveForm(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        MemberEntity member=memberService.findById(principalDetails.getMember().getId());
+        System.out.println("member = " + member);
+        model.addAttribute("member", member);
         return "board/save";
     }
 
     @PostMapping("save")
     public String save(@ModelAttribute BoardSaveDTO boardSaveDTO) throws IOException {
         System.out.println("boardSaveDTO = " + boardSaveDTO);
+        System.out.println("boardSaveDTO.getMemberId() = " + boardSaveDTO.getMemberId());
         Long boardId = bs.save(boardSaveDTO);
         for (MultipartFile b: boardSaveDTO.getBoardFile()) {
             bs.saveFile(boardId, b);
@@ -76,6 +94,8 @@ public class BoardController {
         System.out.println("boardDetailDTO.getPhoto() = " + boardDetailDTO.getPhoto());
         model.addAttribute("board", boardDetailDTO);
         model.addAttribute("imageSize", boardDetailDTO.getPhoto().size());
+        model.addAttribute("commentList", boardDetailDTO.getCommentList());
+        System.out.println("boardDetailDTO.getCommentList() = " + boardDetailDTO.getCommentList());
         System.out.println("boardDetailDTO.getPhoto().size() = " + boardDetailDTO.getPhoto().size());
         return "board/findById";
     }
@@ -100,17 +120,6 @@ public class BoardController {
 
         return "board/search";
     }
-
-//    @PostMapping("tag")
-//    public ResponseEntity tag(@RequestParam String keyword) {
-//        System.out.println("keyword = " + keyword);
-//        List<BoardDetailDTO> boardDetailDTOList = bs.findByTag(keyword);
-//        if (boardDetailDTOList.size() != 0) {
-//            return new ResponseEntity(HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-//        }
-//    }
     
 
 }

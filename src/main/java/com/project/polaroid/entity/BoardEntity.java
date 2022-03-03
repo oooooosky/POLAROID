@@ -19,8 +19,8 @@ public class BoardEntity extends BaseEntity {
     @Column(name = "board_id")
     private Long id;
 
-    @Column
-    private String boardWriter;
+//    @Column
+//    private String boardWriter;
 
     @Column(length = 2000)
     private String boardContents;
@@ -47,9 +47,9 @@ public class BoardEntity extends BaseEntity {
     @JoinColumn(name = "member_id") // 부모테이블의 pk 컬럼이름
     private MemberEntity memberId;
 
-    public static BoardEntity toBoardEntity(BoardSaveDTO boardSaveDTO) {
+    public static BoardEntity toBoardEntity(BoardSaveDTO boardSaveDTO,MemberEntity memberEntity) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardSaveDTO.getBoardWriter());
+        boardEntity.setMemberId(memberEntity);
         boardEntity.setBoardContents(boardSaveDTO.getBoardContents());
         return boardEntity;
     }

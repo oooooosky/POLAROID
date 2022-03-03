@@ -13,8 +13,10 @@ import java.util.List;
 public class BoardDetailDTO {
 
     private Long boardId;
-    private String boardWriter;
+    private Long memberId;
+    private String memberNickname;
     private String boardContents;
+    private String memberEmail;
     private int boardView;
     private int boardLike;
 
@@ -22,18 +24,24 @@ public class BoardDetailDTO {
     private LocalDateTime updateTime;
 
     private List<PhotoDetailDTO> photo;
+    private List<CommentDetailDTO> commentList;
+    private String memberFilename;
 //    private List
 
     public static BoardDetailDTO toBoardDetailDTO(BoardEntity boardEntity) {
         BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
         boardDetailDTO.setBoardId(boardEntity.getId());
-        boardDetailDTO.setBoardWriter(boardEntity.getBoardWriter());
+        boardDetailDTO.setMemberId(boardEntity.getMemberId().getId());
+        boardDetailDTO.setMemberNickname(boardEntity.getMemberId().getMemberNickname());
         boardDetailDTO.setBoardContents(boardEntity.getBoardContents());
         boardDetailDTO.setBoardView(boardEntity.getBoardView());
         boardDetailDTO.setBoardLike(boardEntity.getBoardLike());
         boardDetailDTO.setCreateTime(boardEntity.getCreateTime());
         boardDetailDTO.setUpdateTime(boardEntity.getUpdateTime());
         boardDetailDTO.setPhoto(PhotoDetailDTO.toPhotoDetailDTOList(boardEntity.getPhotoEntity()));
+        boardDetailDTO.setMemberFilename(boardEntity.getMemberId().getMemberFilename());
+        boardDetailDTO.setCommentList(CommentDetailDTO.toCommentDetailDTOList(boardEntity.getCommentEntityList()));
+        boardDetailDTO.setMemberEmail(boardEntity.getMemberId().getMemberEmail());
         return boardDetailDTO;
     }
 

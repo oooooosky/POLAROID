@@ -18,7 +18,7 @@ public class BoardDetailDTO {
     private String boardContents;
     private String memberEmail;
     private int boardView;
-    private int boardLike;
+    private int boardLikeCount;
 
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
@@ -26,7 +26,6 @@ public class BoardDetailDTO {
     private List<PhotoDetailDTO> photo;
     private List<CommentDetailDTO> commentList;
     private String memberFilename;
-//    private List
 
     public static BoardDetailDTO toBoardDetailDTO(BoardEntity boardEntity) {
         BoardDetailDTO boardDetailDTO = new BoardDetailDTO();
@@ -35,7 +34,7 @@ public class BoardDetailDTO {
         boardDetailDTO.setMemberNickname(boardEntity.getMemberId().getMemberNickname());
         boardDetailDTO.setBoardContents(boardEntity.getBoardContents());
         boardDetailDTO.setBoardView(boardEntity.getBoardView());
-        boardDetailDTO.setBoardLike(boardEntity.getBoardLike());
+        boardDetailDTO.setBoardLikeCount(boardEntity.getLikeEntityList().size());
         boardDetailDTO.setCreateTime(boardEntity.getCreateTime());
         boardDetailDTO.setUpdateTime(boardEntity.getUpdateTime());
         boardDetailDTO.setPhoto(PhotoDetailDTO.toPhotoDetailDTOList(boardEntity.getPhotoEntity()));

@@ -90,7 +90,7 @@
                     <div class="dis_inblock mr_15">
 <!--                        <img class="board_detail_contents_1_like_img" onclick="likeCheck()" id="board-detail-like-btn" src="/image/like_default.png" />-->
                         <img class="board_detail_contents_1_like_img" id="board-detail-like-btn" src="/image/like_default.png" />
-                        <label class="fs_14 pt_2">486</label>
+                        <label class="fs_14 pt_2"><span th:text="${board.boardLikeCount}"></span></label>
                         <input type="hidden" id="like_check" th:value="${like}">
                     </div>
                     <div class="dis_inblock">

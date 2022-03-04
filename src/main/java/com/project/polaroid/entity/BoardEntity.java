@@ -28,9 +28,6 @@ public class BoardEntity extends BaseEntity {
     @Column
     private int boardView;
 
-    @Column
-    private int boardLike;
-
     @OneToMany(mappedBy = "boardId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<PhotoEntity> photoEntity = new ArrayList<>();
 

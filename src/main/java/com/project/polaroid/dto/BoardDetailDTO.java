@@ -17,7 +17,6 @@ public class BoardDetailDTO {
     private String memberNickname;
     private String boardContents;
     private String memberEmail;
-    private int boardView;
     private int boardLikeCount;
 
     private LocalDateTime createTime;
@@ -33,7 +32,6 @@ public class BoardDetailDTO {
         boardDetailDTO.setMemberId(boardEntity.getMemberId().getId());
         boardDetailDTO.setMemberNickname(boardEntity.getMemberId().getMemberNickname());
         boardDetailDTO.setBoardContents(boardEntity.getBoardContents());
-        boardDetailDTO.setBoardView(boardEntity.getBoardView());
         boardDetailDTO.setBoardLikeCount(boardEntity.getLikeEntityList().size());
         boardDetailDTO.setCreateTime(boardEntity.getCreateTime());
         boardDetailDTO.setUpdateTime(boardEntity.getUpdateTime());

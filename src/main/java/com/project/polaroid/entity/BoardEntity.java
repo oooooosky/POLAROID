@@ -20,14 +20,8 @@ public class BoardEntity extends BaseEntity {
     @Column(name = "board_id")
     private Long id;
 
-//    @Column
-//    private String boardWriter;
-
     @Column(length = 2000)
     private String boardContents;
-
-    @Column
-    private int boardView;
 
     @OneToMany(mappedBy = "boardId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<PhotoEntity> photoEntity = new ArrayList<>();

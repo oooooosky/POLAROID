@@ -155,5 +155,9 @@ public class IndexController {
         return "admin";
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
 
 }

@@ -1,9 +1,6 @@
 package com.project.polaroid.service;
 
-import com.project.polaroid.dto.BoardDetailDTO;
-import com.project.polaroid.dto.BoardPagingDTO;
-import com.project.polaroid.dto.BoardSaveDTO;
-import com.project.polaroid.dto.PhotoDetailDTO;
+import com.project.polaroid.dto.*;
 import com.project.polaroid.entity.*;
 import com.project.polaroid.page.PagingConst;
 import com.project.polaroid.repository.BoardRepository;
@@ -112,13 +109,17 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
-//    @Override
-//    public List<BoardDetailDTO> findByTag(String keyword) {
-//        List<BoardEntity> boardEntityList = br.findByBoardContents(keyword);
-//        System.out.println("boardEntityList = " + boardEntityList);
-//        List<BoardDetailDTO> boardDetailDTOList = BoardDetailDTO.toBoardDetailDTOList(boardEntityList);
-//        return boardDetailDTOList;
-//    }
+    @Override
+    public void deleteById(Long boardId) {
+        br.deleteById(boardId);
+    }
+
+    @Override
+    public Long update(BoardUpdateDTO boardUpdateDTO) {
+        MemberEntity memberEntity = mr.findById(boardUpdateDTO.getMemberId()).get();
+        BoardEntity boardEntity = BoardEntity.toUpdateBoardEntity(boardUpdateDTO, memberEntity);
+        return br.save(boardEntity).getId();
+    }
 
     @Override
     public Page<BoardPagingDTO> paging(Pageable pageable) {

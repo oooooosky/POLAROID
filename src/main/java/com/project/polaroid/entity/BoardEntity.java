@@ -1,6 +1,7 @@
 package com.project.polaroid.entity;
 
 import com.project.polaroid.dto.BoardSaveDTO;
+import com.project.polaroid.dto.BoardUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,6 +49,14 @@ public class BoardEntity extends BaseEntity {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setMemberId(memberEntity);
         boardEntity.setBoardContents(boardSaveDTO.getBoardContents());
+        return boardEntity;
+    }
+
+    public static BoardEntity toUpdateBoardEntity(BoardUpdateDTO boardUpdateDTO, MemberEntity memberEntity) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setId(boardUpdateDTO.getBoardId());
+        boardEntity.setMemberId(memberEntity);
+        boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
         return boardEntity;
     }
 }

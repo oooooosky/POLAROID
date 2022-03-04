@@ -1,10 +1,7 @@
 package com.project.polaroid.controller;
 
 import com.project.polaroid.auth.PrincipalDetails;
-import com.project.polaroid.dto.BoardDetailDTO;
-import com.project.polaroid.dto.BoardPagingDTO;
-import com.project.polaroid.dto.BoardSaveDTO;
-import com.project.polaroid.dto.CommentDetailDTO;
+import com.project.polaroid.dto.*;
 import com.project.polaroid.entity.MemberEntity;
 import com.project.polaroid.service.BoardService;
 import com.project.polaroid.service.MemberService;
@@ -121,6 +118,25 @@ public class BoardController {
         System.out.println("좋아요");
         int result = bs.saveLike(boardId,memberId);
         return result;
+    }
+
+    @GetMapping("update/{boardId}")
+    public String updateForm(@PathVariable Long boardId, Model model) {
+        BoardDetailDTO boardDetailDTO = bs.findById(boardId);
+        model.addAttribute("board", boardDetailDTO);
+        return "board/update";
+    }
+
+    @PutMapping("{boardId}")
+    public ResponseEntity update(@RequestBody BoardUpdateDTO boardUpdateDTO) {
+        Long boardId = bs.update(boardUpdateDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("{boardId}")
+    public String deleteById(@PathVariable Long boardId) {
+        bs.deleteById(boardId);
+        return "redirect:/board/";
     }
 
 }

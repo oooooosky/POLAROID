@@ -3,6 +3,7 @@ package com.project.polaroid.service;
 import com.project.polaroid.dto.BoardDetailDTO;
 import com.project.polaroid.dto.BoardPagingDTO;
 import com.project.polaroid.dto.BoardSaveDTO;
+import com.project.polaroid.dto.BoardUpdateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,10 @@ public interface BoardService {
     int findLike(Long boardId, Long memberId);
 
     int saveLike(Long boardId, Long memberId);
+
+    void deleteById(Long boardId);
+
+    Long update(BoardUpdateDTO boardUpdateDTO);
 
 //    List<BoardDetailDTO> findByTag(String keyword);
 }

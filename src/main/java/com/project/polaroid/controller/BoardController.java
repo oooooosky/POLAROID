@@ -135,9 +135,9 @@ public class BoardController {
     }
 
     @DeleteMapping("{boardId}")
-    public String deleteById(@PathVariable Long boardId) {
+    public ResponseEntity deleteById(@PathVariable Long boardId) {
         bs.deleteById(boardId);
-        return "redirect:/board/";
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

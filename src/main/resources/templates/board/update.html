@@ -16,6 +16,10 @@
         const board = document.getElementById("boardId").value
         const member = document.getElementById("memberId").value
         const contents = document.getElementById("boardContents").value
+        if (contents=="") {
+            alert("내용을 입력해주세요")
+            location.reload()
+        }
         const reqUrl = "/board/"+board
         const updateData = JSON.stringify({
             boardId: board,

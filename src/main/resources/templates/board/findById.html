@@ -51,7 +51,10 @@
 <!-- 로그아웃 확인 팝업 -->
 <!-- header -->
 
+
+
 <div class="contents">
+    <a th:href="@{|/board/update/${board.boardId}|}" th:if="${session['LoginEmail'].equals(board.memberEmail)}">게시글 수정</a>
     <div class="max_box_3 pt_60">
         <div class="board_detail_box">
             <div class="board_detail_top vertical_box">
@@ -97,7 +100,8 @@
                         <img class="board_detail_contents_1_comment_img" onclick="commentCheck()" id="board-detail-comment-btn" src="/image/comment_default.png" />
                     </div>
                     <div class="dis_inblock board_detail_contents_1_date_time">
-                        <label class="fs_14 color_999"><span th:text="${#temporals.format(board.getCreateTime(), 'yyyy-MM-dd HH:mm')}"></span></label>
+                        <label class="fs_14 color_999" th:if="${board.getUpdateTime() == null}"><span th:text="${#temporals.format(board.getCreateTime(), 'yyyy-MM-dd HH:mm')}"></span></label>
+                        <label class="fs_14 color_999" th:if="${board.updateTime != null}"><span th:text="${#temporals.format(board.getUpdateTime(), 'yyyy-MM-dd HH:mm')}"></span></label>
                     </div>
                 </div>
                 <!-- board detail content 1 -->

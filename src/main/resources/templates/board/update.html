@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
 <input type="text" id="boardId" th:value="${board.boardId}"><br>
 <input type="text" id="memberId" th:value="${board.memberId}"><br>
-<input type="text" id="boardContents" th:value="${board.boardContents}" placeholder="내용"><br>
+<input type="text" id="boardContents" th:value="${board.boardContents}" placeholder="내용" required><br>
 <button onclick="boardUpdate()">수정</button>
 </body>
 <script>
     function boardUpdate() {
-        console.log("함수 호출")
-        const boardId = document.getElementById("boardId").value
-        const memberId = document.getElementById("memberId").value
-        const boardContents = document.getElementById("boardContents").value
-        console.log(boardId,memberId,boardContents)
+        const board = document.getElementById("boardId").value
+        const member = document.getElementById("memberId").value
+        const contents = document.getElementById("boardContents").value
+        const reqUrl = "/board/"+board
+        const updateData = JSON.stringify({
+            boardId: board,
+            memberId: member,
+            boardContents: contents
+        })
+        $.ajax({
+            type: "put",
+            url: reqUrl,
+            data: updateData,
+            contentType: "application/json",
+            success: function () {
+                alert("수정이 완료되었습니다.")
+                location.href=reqUrl
+            }, error: function () {
+                alert("ajax 오류")
+            }
+        })
     }
 </script>
 </html>

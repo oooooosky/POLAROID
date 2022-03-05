@@ -129,7 +129,8 @@ public class BoardController {
 
     @PutMapping("{boardId}")
     public ResponseEntity update(@RequestBody BoardUpdateDTO boardUpdateDTO) {
-        Long boardId = bs.update(boardUpdateDTO);
+        System.out.println("boardUpdateDTO = " + boardUpdateDTO);
+        bs.update(boardUpdateDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 

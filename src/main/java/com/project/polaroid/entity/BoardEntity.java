@@ -46,11 +46,14 @@ public class BoardEntity extends BaseEntity {
         return boardEntity;
     }
 
-    public static BoardEntity toUpdateBoardEntity(BoardUpdateDTO boardUpdateDTO, MemberEntity memberEntity) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setId(boardUpdateDTO.getBoardId());
-        boardEntity.setMemberId(memberEntity);
-        boardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
-        return boardEntity;
+    public static BoardEntity toUpdateBoardEntity(BoardUpdateDTO boardUpdateDTO, BoardEntity boardEntity,MemberEntity memberEntity) {
+        BoardEntity updateBoardEntity = new BoardEntity();
+        updateBoardEntity.setId(boardEntity.getId());
+        updateBoardEntity.setMemberId(memberEntity);
+        updateBoardEntity.setPhotoEntity(boardEntity.getPhotoEntity());
+        updateBoardEntity.setLikeEntityList(boardEntity.getLikeEntityList());
+        updateBoardEntity.setCommentEntityList(boardEntity.getCommentEntityList());
+        updateBoardEntity.setBoardContents(boardUpdateDTO.getBoardContents());
+        return updateBoardEntity;
     }
 }

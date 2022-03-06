@@ -75,9 +75,9 @@
                 <input type="radio" name="pos" id="pos4" th:if="${imageSize >= 4}">
                 <input type="radio" name="pos" id="pos5" th:if="${imageSize >= 5}">
                 <ul>
-            <li th:each="image: ${board.getPhoto()}">
-                <img class="board_detail_img" th:src="@{|/upload/${image.boardFilename}|}" />
-            </li>
+                    <li th:each="image: ${board.getPhoto()}">
+                        <img class="board_detail_img" th:src="@{|/upload/${image.boardFilename}|}" />
+                    </li>
                 </ul>
                 <p class="bullet">
                     <label for="pos1">1</label>

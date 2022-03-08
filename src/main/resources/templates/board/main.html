@@ -51,17 +51,17 @@
                     setTimeout(function() {
                         let addScroll = document.getElementById("addScroll")
                         if (!boardList.last) {
-                            console.log("boardList : ",boardList)
+                            // console.log("boardList : ",boardList)
                             plus += boardList.number + 1
-                            console.log(boardId)
+                            // console.log(boardId)
                             const reqUrl = "/scroll/?page=" + plus
-                            console.log(reqUrl)
+                            // console.log(reqUrl)
                             $.ajax({
                                 type: "get",
                                 url: reqUrl,
                                 success: function (result) {
-                                    console.log("ajax 성공")
-                                    console.log(result)
+                                    // console.log("ajax 성공")
+                                    // console.log(result)
 
                                     let output = ""
 
@@ -81,7 +81,7 @@
                                         output += "</table>"
                                     output += "</div>"
 
-                                    console.log(output)
+                                    // console.log(output)
 
                                     addScroll.innerHTML += output
 
@@ -93,7 +93,7 @@
                             })
 
                         }
-                        console.log("확인")
+                        // console.log("확인")
                     }, 0)
 
                 }
@@ -133,9 +133,29 @@
             </div>
             <div class="header_user_toggle_box" id="userToggleMenu">
                 <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/mypage'" />
-                <input class="header_user_toggle_btn fs_14" id="show" type="button"  onclick="location.href='/logout'" value="로그아웃" />
+<!--                <input class="header_user_toggle_btn fs_14" id="show" type="button"  onclick="location.href='/logout'" value="로그아웃" />-->
+                <button type="button" class="header_user_toggle_btn fs_14" id="show" data-bs-toggle="modal" data-bs-target="#exampleModal">로그아웃</button>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- 로그아웃 모달창 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 로그아웃 하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="modalLogout()">로그아웃</button>
+            </div>
         </div>
     </div>
 </div>
@@ -188,6 +208,9 @@
     function tagSearch() {
         let keyword = document.getElementById("keyword").value
         location.href = "/board/search/" + keyword.replace("#", "")
+    }
+    function modalLogout() {
+        location.href='/logout'
     }
 </script>
 </html>

@@ -45,7 +45,51 @@
     bottom: 40px;
     cursor: pointer;
 }
+
+
 .up_btn_img {
+    width: 100%;
+    height: 100%;
+}
+
+.write_btn {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    right: 120px;
+    bottom: 90px;
+    cursor: pointer;
+}
+
+.write_btn_img {
+    width: 100%;
+    height: 100%;
+}
+
+.delete_btn {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    right: 120px;
+    bottom: 140px;
+    cursor: pointer;
+}
+
+.delete_btn_img {
+    width: 100%;
+    height: 100%;
+}
+
+.update_btn {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    right: 120px;
+    bottom: 190px;
+    cursor: pointer;
+}
+
+.update_btn_img {
     width: 100%;
     height: 100%;
 }

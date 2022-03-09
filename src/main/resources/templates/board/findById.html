@@ -10,6 +10,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="/js/common.js"></script>
     <title>POLAROID</title>
+    <style>
+        body {
+            background-color: #f9f6f8;
+        }
+    </style>
 </head>
 <body>
 <!-- header -->
@@ -72,8 +77,6 @@
 
 
 <div class="contents">
-    <a th:href="@{|/board/update/${board.boardId}|}" th:if="${session['LoginEmail'].equals(board.memberEmail)}">게시글 수정</a>
-    <button th:onclick="boardDelete([[${board.boardId}]])">삭제</button>
     <div class="max_box_3 pt_60">
         <div class="board_detail_box">
             <div class="board_detail_top vertical_box">
@@ -187,10 +190,41 @@
     </div>
 </div>
 <!-- 맨 위로 가기 버튼 -->
+<div th:if="${session['LoginEmail'].equals(board.memberEmail)}">
+    <div class="update_btn">
+        <a th:href="@{|/board/update/${board.boardId}|}">
+            <img class="update_btn_img" src="/image/wrench-adjustable-circle-fill.svg">
+        </a>
+    </div>
+    <div class="delete_btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <img class="delete_btn_img" src="/image/x-circle-fill.svg">
+    </div>
+</div>
+<div class="write_btn" onclick="location.href='/board/save'">
+    <img class="write_btn_img" src="/image/write.svg">
+</div>
 <div class="up_btn" onclick="location.href='#'">
     <img class="up_btn_img" src="/image/up_btn.png" />
 </div>
-<!-- 맨 위로 가기 버튼 -->
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">게시글 삭제</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 게시글을 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" th:onclick="boardDelete([[${board.boardId}]])">삭제하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script>
     let content = document.getElementById("boardContents").value
@@ -328,7 +362,7 @@
             data: boardId,
             url: "/board/"+boardId,
             success: function () {
-                alert("삭제 완료")
+                alert("삭제가 완료되었습니다.")
                 location.href="/board/"
             },
             error: function () {

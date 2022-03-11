@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link href="/css/reset.css" rel="stylesheet" type="text/css">
@@ -12,6 +12,7 @@
     <title>POLAROID</title>
 </head>
 <body>
+
 <div class="box">
     <div class="max_box">
         <div class="mt_40 mb_40">
@@ -26,30 +27,83 @@
                         일반 로그인
                     </p>
                     <form action="/login" method="post">
-                        <div class="input_box">
-                            <p class="general_login_text fs_16">이메일</p>
-                            <input class="general_login_input fs_16" type="text" name="memberEmail"/>
-                        </div>
-                        <div class="input_box">
-                            <p class="general_login_text fs_16">비밀번호</p>
-                            <input class="general_login_input fs_16" type="password" name="memberPw"/>
-                        </div>
-                        <input class="general_login_btn" type="submit" value="로그인"/>
+                    <div class="input_box">
+                        <p class="general_login_text fs_14">이메일</p>
+                        <input class="general_login_input fs_14" type="text" name="memberEmail" placeholder="이메일"/>
+                    </div>
+                    <div class="input_box">
+                        <p class="general_login_text fs_14">비밀번호</p>
+                        <input class="general_login_input fs_14" type="text" name="memberPw" placeholder="비밀번호"/>
+                    </div>
+                    <div class="general_login_btn_box">
+                        <button class="general_login_btn">로그인</button>
+                    </div>
                     </form>
-                    <!--                        <div class="general_"-->
+                    <div class="general_login_bottom">
+                        <input class="general_login_bottom_find_pw_btn" type="button" value="비밀번호를 잊어버렸나요?" onclick="location.href='/lostPassword'" />
+                        <input class="general_login_bottom_signup_btn" type="button" value="회원가입" onclick="location.href='/join'" />
+                    </div>
                 </div>
                 <!-- 간편 로그인 -->
                 <div class="easy_login_area">
                     <p class="login_area_name">
-                        <a href="/oauth2/authorization/google">구글 로그인</a> <br>
-                        <a href="/oauth2/authorization/facebook">페이스북 로그인</a> <br>
-                        <a href="/oauth2/authorization/naver">네이버 로그인</a> <br>
-                        <a href="/oauth2/authorization/kakao">카카오 로그인</a> <br>
+                        간편 로그인
                     </p>
+                    <div class="easy_login_box">
+                        <div class="easy_login_contents">
+                            <a href="/oauth2/authorization/naver">
+                            <div class="easy_login_contents_img_box" style="background-color: #1ec800">
+                                <img class="easy_login_contents_img" src="/image/naver.png" />
+                            </div>
+                            </a>
+                            <a href="/oauth2/authorization/naver">
+                            <div class="easy_login_contents_name_box" style="background-color: #1ec800">
+                                <label class="easy_login_contents_name" style="color: hsla(0,0%,100%,.8)">NAVER</label>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="easy_login_contents">
+                            <a href="/oauth2/authorization/kakao">
+                            <div class="easy_login_contents_img_box" style="background-color: #ffeb00">
+                                <img class="easy_login_contents_img" src="/image/kakaotalk.png" />
+                            </div>
+                            </a>
+                            <a href="/oauth2/authorization/kakao">
+                            <div class="easy_login_contents_name_box" style="background-color: #ffeb00">
+                                <label class="easy_login_contents_name">KAKAOTALK</label>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="easy_login_contents">
+                            <a href="/oauth2/authorization/google">
+                            <div class="easy_login_contents_img_box">
+                                <img class="easy_login_contents_img" src="/image/google.png" />
+                            </div>
+                            </a>
+                            <a href="/oauth2/authorization/google">
+                            <div class="easy_login_contents_name_box">
+                                <label class="easy_login_contents_name">GOOGLE</label>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="easy_login_contents">
+                            <a href="/oauth2/authorization/facebook">
+                            <div class="easy_login_contents_img_box" style="background-color: #475993">
+                                <img class="easy_login_contents_img" src="/image/facebook.png" />
+                            </div>
+                            </a>
+                            <a href="/oauth2/authorization/facebook">
+                            <div class="easy_login_contents_name_box" style="background-color: #475993">
+                                <label class="easy_login_contents_name" style="color: #fff;">FACEBOOK</label>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

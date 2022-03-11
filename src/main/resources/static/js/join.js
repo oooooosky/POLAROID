@@ -230,8 +230,9 @@ function pw2check(){
     }
 }
 
-// 핸드폰 번호 체요
+// 핸드폰 번호 체크
 function pnCheck(){
+    $("#memberPhone").attr("value",$("#frontPhone option:selected").val() + "" + $("#backPhone").val());
     const exp = /^(?=.*\d)[\d]{11}$/;
     const phone = document.getElementById('memberPhone').value;
     const checkResult = document.getElementById('pnOut');
@@ -251,7 +252,7 @@ function pnCheck(){
 
 }
 
-function joinSubmit(){
+function joinSubmit() {
 
     codeCheck();
     mailDuplicateCheck();
@@ -261,19 +262,52 @@ function joinSubmit(){
     pnCheck();
     address();
 
-    const mail=document.getElementById("mailDuplicate").innerText
-    const code=document.getElementById("codeCheckStatus").innerText
-    const pw1=document.getElementById("pw1out").innerText
-    const pw2=document.getElementById("pw2out").innerText
-    const name=document.getElementById("nicknameDuplicate").innerText
-    const addresst=document.getElementById("addressOut").innerText
-    const phone=document.getElementById("pnOut").innerText
+    const mail = document.getElementById("mailDuplicate").innerText
+    const code = document.getElementById("codeCheckStatus").innerText
+    const pw1 = document.getElementById("pw1out").innerText
+    const pw2 = document.getElementById("pw2out").innerText
+    const name = document.getElementById("nicknameDuplicate").innerText
+    const addresst = document.getElementById("addressOut").innerText
+    const phone = document.getElementById("pnOut").innerText
 
-    const checkResult = document.getElementById('joinOut');
-
-    if(mail=="GOOD" && pw1=="GOOD" && pw2=="GOOD" && code=="GOOD" && name=='GOOD' && addresst=='GOOD' && phone=="GOOD")
+    if (mail == "GOOD" && pw1 == "GOOD" && pw2 == "GOOD" && code == "GOOD" && name == 'GOOD' && addresst == 'GOOD' && phone == "GOOD")
         joinForm.submit();
     else {
 
     }
 }
+    function updateMember(){
+
+        nicknameDuplicateCheck();
+        pnCheck();
+        address();
+
+        const name=document.getElementById("nicknameDuplicate").innerText
+        const addresst=document.getElementById("addressOut").innerText
+        const phone=document.getElementById("pnOut").innerText
+
+        if (name == 'GOOD' && addresst == 'GOOD' && phone == "GOOD")
+            updateForm.submit();
+        else {
+
+        }
+    }
+
+    function addInfo(){
+
+    nicknameDuplicateCheck();
+    pnCheck();
+    address();
+
+    const name=document.getElementById("nicknameDuplicate").innerText
+    const addresst=document.getElementById("addressOut").innerText
+    const phone=document.getElementById("pnOut").innerText
+
+    if(name=='GOOD' && addresst=='GOOD' && phone=="GOOD")
+        joinForm.submit();
+    else {
+
+    }
+}
+
+

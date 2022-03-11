@@ -17,10 +17,20 @@ public class FollowEntity {
     @Column (name = "follow_id")
     private Long followId;
 
-    @Column (name = "follow_following")
-    private Long followFollowing;
+    // 팔로잉수
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "follow_my")
+    private MemberEntity followMy;
 
-    @ManyToOne(fetch = FetchType.LAZY) //LAZY 부하 ↓
-    @JoinColumn(name = "member_id") // 부모테이블의 pk 컬럼이름
-    private MemberEntity memberId;
+    // 팔로워수
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "follow_your")
+    private MemberEntity followYour;
+
+    public static FollowEntity toFollowEntity(MemberEntity myId,MemberEntity yourId){
+        FollowEntity followEntity=new FollowEntity();
+        followEntity.setFollowMy(myId);
+        followEntity.setFollowYour(yourId);
+        return followEntity;
+    }
 }

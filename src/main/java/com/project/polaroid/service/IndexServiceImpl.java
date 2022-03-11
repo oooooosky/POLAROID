@@ -24,9 +24,9 @@ public class IndexServiceImpl implements IndexService{
 
     @Override
     @Transactional
-    public void updatePassword(String password,Long memberId) {
+    public void lostPassword(String password,Long memberId) {
         String encPassword=bCryptPasswordEncoder.encode(password);
 
-        memberRepository.updateMember(encPassword,memberId);
+        memberRepository.lostPassword(encPassword,memberId);
     }
 }

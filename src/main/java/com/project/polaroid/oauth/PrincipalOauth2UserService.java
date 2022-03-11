@@ -64,7 +64,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .memberRole(role)
                     .memberProvider(provider)
                     .memberProviderId(providerId)
-                    .memberFilename("defaultProfile")
+                    .memberFilename("user_default.png")
+                    .memberCheckmail(oAuth2UserInfo.getEmail())
                     .build();
             memberRepository.save(member);
         } else {

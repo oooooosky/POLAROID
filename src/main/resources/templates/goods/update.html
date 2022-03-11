@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <h2>GoodsUpdate.html</h2>
+</head>
+<body>
+
+<div class="header">
+    <div class="max_box_2 vertical_box">
+        <div class="header_logo vertical_mid">
+            <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/'"/>
+        </div>
+        <div class="header_search_box vertical_mid">
+            <form action="/goods/search" method="get" class="text-center">
+                <select name="select" id="select" style="width: 15%">
+                    <option value="goodsTitle"> 제목 </option>
+                    <option value="goodsWriter"> 작성자 </option>
+                </select>
+                <input name="search" class="header_search_input fs_16" type="text" placeholder="Search"/>
+                <div class="header_search_btn">
+                    <button type="submit"> <img class="header_search_btn_img" src="/image/search.png"/> </button>
+                </div>
+            </form>
+        </div>
+        <div class="header_right vertical_mid">
+            <!-- 채팅 -->
+            <div class="header_chat">
+                <img class="header_chat_img" src="/image/chat.png"/>
+            </div>
+            <!-- 좋아요 모아보기 -->
+            <div class="header_like">
+                <a th:href="@{|/goods/pick/${memberId}|}"> <img class="header_like_img" src="/image/like.png"/> </a>
+            </div>
+            <!-- 사용자 정보 -->
+            <div class="header_user" id="userToggleButton">
+                <img class="header_user_img" src="/image/user_default.png"/>
+            </div>
+            <div class="header_user_toggle_box" id="userToggleMenu">
+                <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/my_page'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="결제리스트" onclick="location.href='/goods/payList'"/>
+                <button type="button" class="header_user_toggle_btn fs_14" id="show" data-bs-toggle="modal" data-bs-target="#exampleModal">로그아웃</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 로그아웃 모달 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                로그아웃 하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="modalLogout()">로그아웃</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="text" id="goodsId" th:value="${goods.goodsId}"><br>
+<input type="text" id="memberId" th:value="${goods.memberId}"><br>
+제목: <input type="text" id="goodsTitle" th:value="${goods.goodsTitle}" placeholder="제목"><br>
+내용: <input type="text" id="goodsContents" th:value="${goods.goodsContents}" placeholder="내용"><br>
+가격: <input type="text" id="goodsPrice" th:value="${goods.goodsPrice}" placeholder="가격"><br>
+재고: <input type="text" id="goodsStock" th:value="${goods.goodsStock}" placeholder="재고"><br>
+
+<button onclick="goodsUpdate()">수정</button>
+
+</body>
+
+<script>
+    function goodsUpdate() {
+        const goods = document.getElementById("goodsId").value
+        const member = document.getElementById("memberId").value
+        const contents = document.getElementById("goodsContents").value
+        const price = document.getElementById("goodsPrice").value
+        const stock = document.getElementById("goodsStock").value
+        const title = document.getElementById("goodsTitle").value
+        const reqUrl = "/goods/"+goods
+        const updateData = JSON.stringify({
+            goodsId: goods,
+            memberId: member,
+            goodsContents: contents,
+            goodsPrice: price,
+            goodsStock: stock,
+            goodsTitle: title
+        })
+        $.ajax({
+            type: "put",
+            url: reqUrl,
+            data: updateData,
+            contentType: "application/json",
+            success: function () {
+                alert("수정이 완료되었습니다.")
+                location.href=reqUrl
+            }, error: function () {
+                alert("ajax 오류")
+            }
+        })
+    }
+</script>
+
+<script>
+    function modalLogout() {
+        location.href='/logout'
+    }
+</script>
+
+</html>

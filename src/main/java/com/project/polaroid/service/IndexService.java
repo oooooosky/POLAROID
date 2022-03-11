@@ -7,5 +7,5 @@ public interface IndexService {
     MemberEntity findPassword(String memberEmail);
 
     // 비밀번호 변경
-    void updatePassword(String password,Long memberId);
+    void lostPassword(String password,Long memberId);
 }

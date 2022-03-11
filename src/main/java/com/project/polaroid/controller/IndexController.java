@@ -23,6 +23,7 @@ public class IndexController {
     private final IndexService indexService;
     private final JavaMailSender javaMailSender;
 
+    // 시작 페이지
     @GetMapping({"","/"})
     public String index() {
         return "index";
@@ -101,38 +102,47 @@ public class IndexController {
     }
 
     // 비밀번호 변경 페이지 이동
-    @GetMapping("/findPassword")
-    public String findPasswordFor(){
-        return "findPassword";
+    @GetMapping("/lostPassword")
+    public String lostPasswordForm(){
+        return "lostPassword";
     }
 
     // 비밀번호 변경 처리
-    @PostMapping("/findPassword")
-    public String findPassword(@RequestParam ("memberEmail") String memberEmail){
+    @PostMapping("/lostPassword")
+    public @ResponseBody String lostPassword(@RequestParam ("memberEmail") String memberEmail){
         // 변경할 비밀번호 이메일로 전송
         MemberEntity member=indexService.findPassword(memberEmail);
-        String mail=member.getMemberCheckmail();
+        String result=null;
+        if(member != null) {
+            String mail = member.getMemberCheckmail();
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mail); // 인증코드 받들 사용자 메일 주소
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(mail); // 인증코드 받들 사용자 메일 주소
 
-        String password = UUID.randomUUID().toString();;
-        System.out.println("확인용 나중에 삭제 password = " + password);
+            String password = UUID.randomUUID().toString();
+            ;
+            System.out.println("확인용 나중에 삭제 password = " + password);
 
-        message.setSubject("Polaroid 비밀번호 변경");
-        message.setText("변경된 비밀번호 : "+password);
-        javaMailSender.send(message);
+            message.setSubject("Polaroid 비밀번호 변경");
+            message.setText("변경된 비밀번호 : " + password);
+            javaMailSender.send(message);
 
-        // 비밀번호 변경
-        Long memberId=member.getId();
-        indexService.updatePassword(password,memberId);
+            // 비밀번호 변경
+            Long memberId = member.getId();
+            indexService.lostPassword(password, memberId);
 
-        return "login";
+            result="<script>alert('변경된 이메일을 등록된 이메일에 보냈습니다.');location.href='login'</script>";
+        }
+        else{
+            result="<script>alert('등록되지 않은 아이디 입니다.');location.href='login'</script>";
+        }
+        return result;
     }
 
     // 권한없을때
     @GetMapping("/accessDenied")
     public String accessDenied(){
+        // alert 처리
         return "accessDenied";
     }
 
@@ -155,9 +165,5 @@ public class IndexController {
         return "admin";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
 
 }

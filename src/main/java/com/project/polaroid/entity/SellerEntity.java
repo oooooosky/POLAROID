@@ -20,4 +20,7 @@ public class SellerEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberId;
+
+    @Column(name = "seller_boolean")
+    private boolean sellerBoolean;
 }

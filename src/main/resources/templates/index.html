@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link href="/css/reset.css" rel="stylesheet" type="text/css">
@@ -11,6 +11,8 @@
     <title>POLAROID</title>
 </head>
 <body>
+<!--세션 : <p th:text="${session['LoginEmail']}"></p>-->
+
 <div class="box">
     <div class="index_bg">
         <div class="vertical_box text_center">
@@ -25,7 +27,6 @@
                     <p class="index_text fs_14">share</p>
                     <p class="index_text fs_14">shopping</p>
                     <p class="index_text fs_8">○</p>
-<!--                    <p th:text="${session.LoginNumber}"></p>-->
                 </div>
                 <div>
                     <input class="index_btn index_login_btn fs_20 fw_b" type="button" value="LOGIN" onclick="location.href='/login'" />
@@ -36,8 +37,13 @@
 
                 <!-- 임시 버튼 -->
                 <div>
-                    <input class="index_btn index_signup_btn fs_16" type="button" value="main" onclick="location.href='/board/'" />
-<!--                    <input class="index_btn index_signup_btn fs_16" type="button" value="board_detail" onclick="location.href='/board_detail'" />-->
+                    <input class="index_btn index_signup_btn fs_16" type="button" value="board" onclick="location.href='/board/'" />
+                    <!--                    <input class="index_btn index_signup_btn fs_16" type="button" value="board_detail" onclick="location.href='/board_detail'" />-->
+                </div>
+
+                <div>
+                    <input class="index_btn index_signup_btn fs_16" type="button" value="goods" onclick="location.href='/goods/'" />
+                    <!--                    <input class="index_btn index_signup_btn fs_16" type="button" value="board_detail" onclick="location.href='/board_detail'" />-->
                 </div>
 
             </div>

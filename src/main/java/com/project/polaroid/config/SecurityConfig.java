@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("memberEmail") // username => memberEmail
                 .passwordParameter("memberPw") // password => memberPw
                 .loginProcessingUrl("/login") // 해당주소("/login")가 호출되면 대신 로그인을 진행
-                .defaultSuccessUrl("/") // 로그인후 가게 되는 주소
+                .successHandler(new SuccessHandler(memberRepository)) // 로그인 성공시
                 .failureHandler(new FailHandler()) //로그인 실패시
                 .and()
                 .logout()

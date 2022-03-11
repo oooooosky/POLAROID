@@ -32,9 +32,6 @@ public class BoardEntity extends BaseEntity {
     @OneToMany(mappedBy = "boardId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<LikeEntity> likeEntityList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "boardEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private GoodsEntity goodsEntity;
-
     @ManyToOne(fetch = FetchType.LAZY) //LAZY 부하 ↓
     @JoinColumn(name = "member_id") // 부모테이블의 pk 컬럼이름
     private MemberEntity memberId;

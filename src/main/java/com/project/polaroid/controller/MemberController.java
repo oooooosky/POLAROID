@@ -11,6 +11,8 @@ import com.project.polaroid.service.FollowService;
 import com.project.polaroid.service.MemberService;
 import com.project.polaroid.service.SellerRoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -187,4 +189,11 @@ public class MemberController {
         memberService.addCount(memberId,messageCount);
     }
 
+    // 관리자 회원 삭제
+    @DeleteMapping("{memberId}")
+    public ResponseEntity deleteById(@PathVariable Long memberId) {
+        System.out.println("memberId = " + memberId);
+        memberService.memberResign(memberId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

@@ -31,6 +31,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 
         session.setAttribute("LoginEmail", authentication.getName());
         session.setAttribute("LoginNumber", member.getId());
+        session.setAttribute("LoginRole", member.getMemberRole());
 
         if(member.getMemberPhone() == null) {
             response.sendRedirect("/member/addInfo");

@@ -16,6 +16,19 @@
         }
     </style>
 </head>
+<script>
+    // 로그아웃 확인 팝업
+    function show() {
+        document.querySelector(".background").className = "background show";
+    }
+
+    function close() {
+        document.querySelector(".background").className = "background";
+    }
+
+    document.querySelector("#show").addEventListener('click', show);
+    document.querySelector("#close").addEventListener('click', close);
+</script>
 <body>
 <!-- header -->
 <div class="header">
@@ -201,6 +214,11 @@
 </div>
 <div class="up_btn" onclick="location.href='#'">
     <img class="up_btn_img" src="/image/up_btn.png" />
+</div>
+<div th:if="${session.LoginRole.equals('ROLE_ADMIN')}">
+    <div class="admin_delete_btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <img class="admin_delete_btn_img" src="/image/red-x.svg">
+    </div>
 </div>
 
 <!--<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">-->

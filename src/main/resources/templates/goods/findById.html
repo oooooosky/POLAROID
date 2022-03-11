@@ -254,7 +254,25 @@
 <!--</div>-->
 
 
+<div th:if="${session.LoginRole.equals('ROLE_ADMIN')}">
+    <div class="up_btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <img class="update_btn_img" src="/image/red-x.svg">
+    </div>
+</div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p_30 bg_ef">
+            <div class="modal-body fs_16 text_center fw_b">
+                정말로 게시글을 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer border_none modal_btn_box">
+                <button type="button" class="btn btn-secondary flex-grow-1 bg_ccc logout_modal_btn logout_modal_btn_cancel" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary flex-grow-1 bg_524A4E logout_modal_btn logout_modal_btn_okay" th:onclick="goodsDelete([[${goods.goodsId}]])">삭제하기</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 

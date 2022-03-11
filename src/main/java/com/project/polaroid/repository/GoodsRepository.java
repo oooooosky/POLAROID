@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface GoodsRepository extends JpaRepository<GoodsEntity, Long> {
 
     Page<GoodsEntity> findByGoodsTitleContaining(String search, Pageable pageable);
@@ -26,5 +28,6 @@ public interface GoodsRepository extends JpaRepository<GoodsEntity, Long> {
     @Query("update GoodsEntity p set p.goodsStock = p.goodsStock - :count where p.id = :goodsId")
     void stockDown(Long goodsId, int count);
 
+    List<GoodsEntity> findAllByOrderByIdDesc();
 }
 

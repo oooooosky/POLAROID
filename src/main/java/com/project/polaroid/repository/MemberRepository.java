@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface MemberRepository extends JpaRepository <MemberEntity,Long> {
 
     public MemberEntity findByMemberEmail(String email);
@@ -35,4 +37,6 @@ public interface MemberRepository extends JpaRepository <MemberEntity,Long> {
     @Modifying
     @Query("update MemberEntity p set  p.memberMessage = :messageCount where p.id = :memberId")
     void addCount(Long memberId, int messageCount);
+
+    List<MemberEntity> findAllByOrderByIdDesc();
 }

@@ -144,17 +144,13 @@
 <!-- 로그아웃 모달창 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content p_30 bg_ef">
+            <div class="modal-body fs_16 text_center fw_b">
+                로그아웃 하시겠습니까?
             </div>
-            <div class="modal-body">
-                정말로 로그아웃 하시겠습니까?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" onclick="modalLogout()">로그아웃</button>
+            <div class="modal-footer border_none modal_btn_box">
+                <button type="button" class="btn btn-secondary flex-grow-1 bg_ccc logout_modal_btn logout_modal_btn_cancel" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary flex-grow-1 bg_524A4E logout_modal_btn logout_modal_btn_okay" onclick="modalLogout()">로그아웃</button>
             </div>
         </div>
     </div>
@@ -189,6 +185,9 @@
         <!-- 이부분 수정해야함. 예시 -->
 
         <!-- 맨 위로 가기 버튼 -->
+        <div class="delete_btn" onclick="location.href='/goods/'">
+            <img class="delete_btn_img" src="/image/shopping-cart-png-icon-0.jpg">
+        </div>
         <div class="write_btn" onclick="location.href='/board/save'">
             <img class="write_btn_img" src="/image/write.svg">
         </div>

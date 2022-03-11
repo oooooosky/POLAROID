@@ -171,18 +171,18 @@
                 <div class="card-body">
                     <div class="d-flex bd-highlight mb-3">
                         <div class="me-auto p-2 bd-highlight">
-                            <p class="card-text"> <h2 th:text="${goods.goodsTitle}"> </h2> <p th:text="'남은재고 '+${goods.goodsStock}+'개'"> </p> <font style="vertical-align: inherit;">
+                            <p class="card-text" style="margin-bottom: 4px"> <h2 th:text="${goods.goodsTitle}"> </h2> <p th:text="'남은재고 '+${goods.goodsStock}+'개'"> </p> <font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;"> </font><font style="vertical-align: inherit;">
 
                         </font></font></p>
                         </div>
                         <div class="p-2 bd-highlight">
                             <!--                            좋아요 이미지랑 카운트 -->
-                            <img id="heart" src="/image/like.png" style="width:25px">
+                            <img id="heart" src="/image/star.png" style="width:25px; margin-bottom: 4px">
                             <label class="fs_14 pt_2"> <span th:text="${goods.goodsLikeCount}"> </span></label>
 
                             <!--                            조회수 이미지랑 카운트-->
-                            <img src="/image/eye.png" style="width:30px">
+                            <img src="/image/eye.png" style="width:30px; margin-bottom: 4px">
                             <label class="fs_14 pt_2"> <span th:text="${goods.goodsView}"> </span></label>
 
                         </div>

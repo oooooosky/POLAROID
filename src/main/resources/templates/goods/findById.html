@@ -233,7 +233,7 @@
                     <button class="long_btn_3 signup_btn fs_16 fw_b" th:if="${goods.goodsStock<=0}"> 품절 </button>
                 </div>
                 <div class="flex-grow-1 mg_lr_5">
-                    <img class="goods_like_btn" id="goodsLike" src="/image/like_default.png">
+                    <img class="goods_like_btn" style="margin-top:6px;" id="goodsLike" src="/image/star-default.png">
                     <input type="hidden" id="like_check" th:value="${like}">
                 </div>
             </div>
@@ -287,9 +287,9 @@
         const likeImg = document.getElementById("goodsLike")
 
         if (likeVal > 0) {
-            likeImg.src = "/image/like.png";
+            likeImg.src = "/image/star.png";
         } else {
-            likeImg.src = "/image/like_default.png";
+            likeImg.src = "/image/star-default.png";
         }
         // 좋아요 버튼을 클릭 시 실행되는 코드
         likeImg.addEventListener("click", function () {
@@ -299,12 +299,12 @@
                 data: {'goodsId': goodsId, 'memberId': memberId},
                 success: function (data) {
                     if (data == 1) {
-                        $("#likeImg").attr("src", "/image/like.png");
+                        $("#likeImg").attr("src", "/image/star.png");
                         // location.href="/board/"+boardId;
                         location.reload()
 
                     } else {
-                        $("#likeImg").attr("src", "/image/like_default.png");
+                        $("#likeImg").attr("src", "/image/star-default.png");
                         // location.href="/board/"+boardId;
                         location.reload()
                     }

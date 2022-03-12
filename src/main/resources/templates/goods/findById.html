@@ -255,12 +255,12 @@
 
 
 <div th:if="${session.LoginRole.equals('ROLE_ADMIN')}">
-    <div class="up_btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
+    <div class="up_btn" data-bs-toggle="modal" data-bs-target="#adminDeleteModal">
         <img class="update_btn_img" src="/image/red-x.svg">
     </div>
 </div>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="adminDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p_30 bg_ef">
             <div class="modal-body fs_16 text_center fw_b">
@@ -268,7 +268,7 @@
             </div>
             <div class="modal-footer border_none modal_btn_box">
                 <button type="button" class="btn btn-secondary flex-grow-1 bg_ccc logout_modal_btn logout_modal_btn_cancel" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary flex-grow-1 bg_524A4E logout_modal_btn logout_modal_btn_okay" th:onclick="goodsDelete([[${goods.goodsId}]])">삭제하기</button>
+                <button type="button" class="btn btn-primary flex-grow-1 bg_524A4E logout_modal_btn logout_modal_btn_okay" th:onclick="adminGoodsDelete([[${goods.goodsId}]])">삭제하기</button>
             </div>
         </div>
     </div>
@@ -335,13 +335,12 @@
         });
     });
 
-    function goodsDelete(goodsId) {
+    function adminGoodsDelete(goodsId) {
         $.ajax({
             type: "delete",
-            url: "/goods/"+goodsId,
+            url: "/admin/goods/"+goodsId,
             success: function () {
-                alert("삭제되었습니다.")
-                location.href="/goods/"
+                location.href="/admin/goodsList"
             },
             error: function () {
                 console.log("ajax 오류")

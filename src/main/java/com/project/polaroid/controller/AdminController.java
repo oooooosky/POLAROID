@@ -31,13 +31,12 @@ public class AdminController {
     public final GoodsRepository gr;
 
     @GetMapping("admin/adminPage")
-    public String adminPage(Model model){
-        List <SellerEntity> sellerEntityList = sellerRoleService.findAll();
-        model.addAttribute("sellerList",sellerEntityList);
+    public String adminPage(){
         return "admin/adminPage";
     }
 
-    @GetMapping("admin/giveRole/{memberId}")    public String giveRole(@PathVariable Long memberId){
+    @GetMapping("admin/giveRole/{memberId}")
+    public String giveRole(@PathVariable Long memberId){
         sellerRoleService.giveRole(memberId);
         return "redirect:/admin/adminPage";
     }
@@ -60,6 +59,13 @@ public class AdminController {
         List<GoodsEntity> goodsEntityList = gr.findAllByOrderByIdDesc();
         model.addAttribute("goods", goodsEntityList);
         return "admin/goodsList";
+    }
+
+    @GetMapping("admin/sellerList")
+    public String sellerList(Model model) {
+        List <SellerEntity> sellerEntityList = sellerRoleService.findAll();
+        model.addAttribute("sellerList",sellerEntityList);
+        return "admin/sellerList";
     }
 
 }

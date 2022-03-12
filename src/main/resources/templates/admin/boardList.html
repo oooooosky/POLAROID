@@ -26,14 +26,14 @@
     <thead>
     <tr>
         <th scope="col">게시글 번호</th>
-        <th scope="col">게시글 대표 사진</th>
+        <th scope="col">대표 사진</th>
         <th scope="col">작성자</th>
         <th scope="col">작성자 이메일</th>
         <th scope="col">상세 조회</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="board: ${board}">
+    <tr class="align-items-center" th:each="board: ${board}">
         <th scope="row" th:text="${board.id}"></th>
         <td class="board_img_box"><img class="board_img" th:src="@{|/upload/${board.getPhotoEntity().get(0).getBoardFilename()}|}"></td>
         <td th:text="${board.memberId.memberNickname}"></td>

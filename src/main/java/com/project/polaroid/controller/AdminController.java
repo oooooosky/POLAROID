@@ -1,6 +1,5 @@
 package com.project.polaroid.controller;
 
-import com.project.polaroid.dto.GoodsDetailDTO;
 import com.project.polaroid.entity.BoardEntity;
 import com.project.polaroid.entity.GoodsEntity;
 import com.project.polaroid.entity.MemberEntity;
@@ -8,12 +7,9 @@ import com.project.polaroid.entity.SellerEntity;
 import com.project.polaroid.repository.BoardRepository;
 import com.project.polaroid.repository.GoodsRepository;
 import com.project.polaroid.repository.MemberRepository;
-import com.project.polaroid.service.BoardService;
-import com.project.polaroid.service.GoodsService;
 import com.project.polaroid.service.MemberService;
 import com.project.polaroid.service.SellerRoleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,21 +23,15 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
-
     public final SellerRoleService sellerRoleService;
     public final MemberRepository mr;
     public final BoardRepository br;
     public final GoodsRepository gr;
 
-    @GetMapping("admin/adminPage")
-    public String adminPage(){
-        return "admin/adminPage";
-    }
-
     @GetMapping("admin/giveRole/{memberId}")
     public String giveRole(@PathVariable Long memberId){
         sellerRoleService.giveRole(memberId);
-        return "redirect:/admin/adminPage";
+        return "redirect:/admin/sellerList";
     }
 
     @GetMapping("admin/memberList")

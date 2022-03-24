@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="/css/reset.css" rel="stylesheet" type="text/css">
@@ -29,15 +29,17 @@
                     <p class="index_text fs_8">○</p>
                 </div>
                 <div>
-                    <input class="index_btn index_login_btn fs_20 fw_b" type="button" value="LOGIN" onclick="location.href='/login'" />
+                    <input class="index_btn index_login_btn fs_20 fw_b" th:if="${session['LoginEmail']} == null" type="button" value="LOGIN" onclick="location.href='/login'" />
+                    <input class="index_btn index_login_btn fs_20 fw_b" th:if="${session['LoginEmail']} != null" type="button" value="LOGOUT" onclick="location.href='/logout'" />
                 </div>
                 <div>
-                    <input class="index_btn index_signup_btn fs_16" type="button" value="Signup" onclick="location.href='/join'" />
+                    <input class="index_btn index_signup_btn fs_16" th:if="${session['LoginEmail']} == null" type="button" value="Signup" onclick="location.href='/join'" />
+                    <input class="index_btn index_signup_btn fs_16" th:if="${session['LoginEmail']} != null" type="button" value="MYPAGE" onclick="location.href='/member/mypage'" />
                 </div>
 
                 <!-- 임시 버튼 -->
                 <div>
-                    <input class="index_btn index_signup_btn fs_16" type="button" value="board" onclick="location.href='/board/'" />
+                    <input class="index_btn index_signup_btn fs_16" type="button" value="SNS" onclick="location.href='/board/'" />
                     <!--                    <input class="index_btn index_signup_btn fs_16" type="button" value="board_detail" onclick="location.href='/board_detail'" />-->
                 </div>
 
@@ -46,11 +48,11 @@
                     <!--                    <input class="index_btn index_signup_btn fs_16" type="button" value="board_detail" onclick="location.href='/board_detail'" />-->
                 </div>
 
-                <div>
-                    <input class="index_btn index_signup_btn fs_16" type="button" value="admin" onclick="location.href='/admin/adminPage'" />
-                    <!--                    <input class="index_btn index_signup_btn fs_16" type="button" value="board_detail" onclick="location.href='/board_detail'" />-->
-                </div>
-
+                <!-- 관리자 -->
+                <a class="btn btn-outline-dark" href="/admin/memberList" th:if="${session['LoginRole']} == 'ROLE_ADMIN'">회원관리</a>
+                <a class="btn btn-outline-dark" href="/admin/boardList" th:if="${session['LoginRole']} == 'ROLE_ADMIN'">게시글관리</a>
+                <a class="btn btn-outline-dark" href="/admin/goodsList" th:if="${session['LoginRole']} == 'ROLE_ADMIN'">판매글관리</a>
+                <a class="btn btn-outline-dark" href="/admin/sellerList" th:if="${session['LoginRole']} == 'ROLE_ADMIN'">판매권한 관리</a>
             </div>
         </div>
     </div>

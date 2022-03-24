@@ -17,13 +17,16 @@ public class CommentEntity extends BaseEntity{
     @Column(name = "comment_id")
     private Long id;
 
+    // 댓글 내용
     @Column
     private String commentContents;
 
+    // 해당 게시글
     @ManyToOne
     @JoinColumn(name = "board_id")
     private BoardEntity boardId;
 
+    // 작성용
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity memberId;
@@ -36,3 +39,4 @@ public class CommentEntity extends BaseEntity{
         return commentEntity;
     }
 }
+

@@ -1,6 +1,7 @@
 package com.project.polaroid.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ public class PhotoEntity {
     @Column(name = "photo_id")
     private Long id;
 
+    // 해당 게시글
     @ManyToOne
     @JoinColumn(name = "board_id")
     private BoardEntity boardId;

@@ -29,21 +29,22 @@ html, body {
 }
 .general_login_text {
     width: 80px;
+    height: 100%;
+    padding-top: 10px;
     display: inline-block;
     text-align: right;
     flex-grow: 1;
     margin-right: 10px;
-    padding-top: 2px;
 }
 .general_login_input {
     width: 240px;
+    height: 100%;
     flex-grow: 1;
     border-radius: 4px;
 }
 .general_login_btn_box {
-    width: 319px;
     height: 40px;
-    padding-left: 87px;
+    padding-left: 109px;
     margin-bottom: 8px;
 }
 .general_login_btn {
@@ -62,9 +63,8 @@ html, body {
     box-shadow: 0px 0px 5px #a0939a;
 }
 .general_login_bottom {
-    width: 319px;
     height: auto;
-    padding-left: 87px;
+    padding-left: 102px;
 }
 .general_login_bottom_find_pw_btn, .general_login_bottom_signup_btn {
     width: auto;
@@ -96,7 +96,7 @@ html, body {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     border-right: 1px solid rgba(255,255,255,0.4);
-    padding: 10px;
+    padding: 9px;
     display: inline-block;
 }
 .easy_login_contents_img {
@@ -115,4 +115,5 @@ html, body {
 .easy_login_contents_name {
     font-weight: bold;
     font-size: 15px;
+    cursor: pointer;
 }

@@ -1,5 +1,6 @@
 package com.project.polaroid.service;
 
+
 import com.project.polaroid.dto.CommentDetailDTO;
 import com.project.polaroid.dto.CommentSaveDTO;
 import com.project.polaroid.entity.BoardEntity;
@@ -11,7 +12,6 @@ import com.project.polaroid.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service

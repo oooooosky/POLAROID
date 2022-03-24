@@ -17,10 +17,11 @@
 
 <body>
 
+<!-- header -->
 <div class="header">
     <div class="max_box_2 vertical_box">
         <div class="header_logo vertical_mid">
-            <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/'"/>
+            <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/'" />
         </div>
         <div class="header_search_box vertical_mid">
             <form action="/goods/search" method="get" class="text-center">
@@ -33,52 +34,52 @@
                     <button type="submit"> <img class="header_search_btn_img" src="/image/search.png"/> </button>
                 </div>
             </form>
-        </div>
-        <div class="header_right vertical_mid">
-            <!-- 채팅 -->
-            <div class="header_chat">
-                <img class="header_chat_img" src="/image/chat.png"/>
             </div>
-            <!-- 좋아요 모아보기 -->
-            <div class="header_like">
-                <a th:href="@{|/goods/pick/${memberId}|}"> <img class="header_like_img" src="/image/like.png"/> </a>
-            </div>
-            <!-- 사용자 정보 -->
-            <div class="header_user" id="userToggleButton">
-                <img class="header_user_img" src="/image/user_default.png"/>
+        <div class="header_right vertical_mid" >
+            <div class="dis_flex header_right_box" th:if="${session['LoginEmail']} != null">
+                <!-- 채팅 -->
+                <div class="header_chat_box flex-grow-1">
+                    <div class="header_chat ">
+                        <img class="far fa-envelope icon-badge-icon header_chat_img" src="/image/chat.png" onclick="location.href='/chat'"/>
+                        <div class="icon-badge" th:if="${member.memberMessage>0}"><p th:text="${member.memberMessage}"> </p></div>
+                    </div>
+                </div>
+                <!-- 좋아요 모아보기 -->
+                <div class="header_like flex-grow-1">
+                    <a th:href="@{|/goods/pick/${memberId}|}"> <img class="header_like_img" src="/image/star.png"/> </a>
+                </div>
+                <!-- 사용자 정보 -->
+                <div class="header_user flex-grow-1" id="userToggleButton">
+                    <img class="header_user_img" th:src="@{|/profile/${member.memberFilename}|}"/>
+                </div>
             </div>
             <div class="header_user_toggle_box" id="userToggleMenu">
-                <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/my_page'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/member/mypage'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="SNS" onclick="location.href='/board/'"/>
                 <input class="header_user_toggle_btn fs_14" type="button" value="결제리스트" onclick="location.href='/goods/payList'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="내 쇼핑몰" th:if="${member.memberRole == 'ROLE_SELLER'}" th:onclick="'location.href=\''+ @{|/goods/list/${session.LoginNumber}|} + '\''"/>
                 <button type="button" class="header_user_toggle_btn fs_14" id="show" data-bs-toggle="modal" data-bs-target="#exampleModal">로그아웃</button>
             </div>
-
         </div>
     </div>
 </div>
 
-<!-- 로그아웃 모달 -->
+<!-- 로그아웃 모달창 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+        <div class="modal-content p_30 bg_ef">
+            <div class="modal-body fs_16 text_center fw_b">
                 로그아웃 하시겠습니까?
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" onclick="modalLogout()">로그아웃</button>
+            <div class="modal-footer border_none modal_btn_box">
+                <button type="button" class="btn btn-secondary flex-grow-1 bg_ccc logout_modal_btn logout_modal_btn_cancel" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary flex-grow-1 bg_524A4E logout_modal_btn logout_modal_btn_okay" onclick="modalLogout()">로그아웃</button>
             </div>
         </div>
     </div>
 </div>
+<!-- 로그아웃 모달창 -->
 
-<!-- 로그아웃 확인 팝업 -->
-<!-- 해야함 -->
-<!-- 로그아웃 확인 팝업 -->
 <!-- header -->
 
 <div class="contents" style="background-color: #fff;">
@@ -100,6 +101,13 @@
         <!--            </div>-->
         <!--        </form>-->
         <form action="/goods/save" name="wow1" method="post" enctype="multipart/form-data">
+            <div class="memberUpdate_box_2 text_center mb_20">
+                <label class="shop_image_button" for="avatars">
+                    +
+                </label>
+                <input type="file" id="avatars" style="display: none;" name="goodsFile" multiple="multiple" accept="image/*" />
+            </div>
+            <p class="text_center" id="fileOut"></p>
             <div class="input_box">
                 <p class="input_label fs_14">작성자</p>
                 <input th:value="${member.memberNickname}" class="input_text_5 fs_14" type="text" placeholder="작성자" readonly>
@@ -121,14 +129,14 @@
                 <p class="input_label fs_14">재고</p>
                 <input class="input_text_5 fs_14" type="text" id="goodsStock" name="goodsStock">
             </div>
-            <div class="input_box">
-                <p class="input_label fs_14">상품 이미지</p>
-                <input class="ml_5 shop_save_input_file" type="file" id="avatars" name="goodsFile" value="상품내용파일" multiple="multiple" accept="image/*"/>
-            </div>
+<!--            <div class="input_box">-->
+<!--                <p class="input_label fs_14">상품 이미지</p>-->
+<!--                <input class="ml_5 shop_save_input_file" type="file" id="avatars" name="goodsFile" value="상품내용파일" multiple="multiple" accept="image/*"/>-->
+<!--            </div>-->
             <div class="input_box_2">
                 <p class="input_label fs_14">상품 정보</p>
-                <textarea class="input_text_6" name="goodsInFor" id="floatingTextarea2"></textarea>
-                <label for="floatingTextarea2"> 상품정보를 입력하세요 </label>
+                <textarea class="input_text_6" name="goodsInFor" id="goodsInFor" placeholder="상품정보를 입력하세요"></textarea>
+<!--                <label for="floatingTextarea2">  </label>-->
             </div>
             <div id="check"></div>
 
@@ -178,13 +186,14 @@
     input.addEventListener('change', (e) => {
         // Retrieve all files
         const files = input.files;
-
+        const output=document.getElementById('fileOut');
         // Check files count
         if (files.length > 5) {
             check.innerHTML = ""
             alert(`5개 이하로 올려주세요.`);
             return;
         } else {
+            output.innerText="파일" +files.length + "개";
             check.innerHTML = ""
         }
 

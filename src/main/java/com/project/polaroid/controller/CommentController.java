@@ -4,7 +4,6 @@ import com.project.polaroid.dto.CommentDetailDTO;
 import com.project.polaroid.dto.CommentSaveDTO;
 import com.project.polaroid.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/comment/*")
 public class CommentController {
-
     private final CommentService cs;
 
     @PostMapping("save")
@@ -31,5 +29,4 @@ public class CommentController {
         cs.deleteById(commentId);
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

@@ -3,7 +3,7 @@
 
     let con=document.getElementById("confirm").value;
     let checkResult = document.getElementById('confirmOut');
-    if(con=="POLAROID 탈퇴하기") {
+    if(con==="POLAROID 탈퇴하기") {
     confirmForm.submit();
     }
     else{

@@ -1,7 +1,9 @@
 package com.project.polaroid.dto;
 
 import com.project.polaroid.entity.BoardEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

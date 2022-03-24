@@ -12,4 +12,6 @@ public interface PayRepository extends JpaRepository<PayEntity, Long> {
     PayEntity findTop1ByGoodsEntityAndMemberEntityOrderByIdDesc(GoodsEntity goodsEntity, MemberEntity memberEntity);
 
     List<PayEntity> findAllByMemberEntity(MemberEntity memberEntity);
+
+    List<PayEntity> findAllByMemberEntityOrderByIdDesc(MemberEntity memberEntity);
 }

@@ -1,5 +1,6 @@
 package com.project.polaroid.dto;
 
+import com.project.polaroid.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,8 @@ public class ChatRoomFormDTO {
     private String writer;
     private String lastMessage;
     private LocalDateTime time;
+    private MemberEntity member;
+    private int messageNotice;
 
     public void makeChatRoomForm(String message, String anotherUser, LocalDateTime time) {
         this.lastMessage = message;

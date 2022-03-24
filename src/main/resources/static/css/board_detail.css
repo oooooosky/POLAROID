@@ -12,10 +12,24 @@
 .board_detail_user {
     width: 30px;
 }
+.board_detail_user_img_box {
+    width: 40px;
+    height: 40px;
+    margin: 0 15px;
+    border-radius: 70%;
+    overflow: hidden;
+    position: relative;
+}
 .board_detail_user_img {
-    width: 30px;
-    height: 30px;
-    margin-right: 15px;
+    /*width: 30px;*/
+    /*height: 30px;*/
+    /*margin-right: 15px;*/
+    /*border-radius: 70%;*/
+    /*overflow: hidden;*/
+
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
 }
 .board_detail_name {
     cursor: pointer;

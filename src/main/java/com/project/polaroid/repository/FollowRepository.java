@@ -1,5 +1,6 @@
 package com.project.polaroid.repository;
 
+import com.project.polaroid.dto.FollowAddDTO;
 import com.project.polaroid.entity.FollowEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,4 +36,5 @@ public interface FollowRepository extends JpaRepository<FollowEntity,Long> {
     @Modifying
     @Query(value = "delete from follow_table a where a.follow_my= :myId and a.follow_your= :yourId", nativeQuery=true)
     void deleteFollow(Long myId,Long yourId);
+
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/goodsComment/*")
@@ -20,7 +19,8 @@ public class GoodsCommentController {
     private final GoodsCommentService gcs;
 
     @PostMapping("save")
-    public @ResponseBody List<GoodsCommentDetailDTO> save (@ModelAttribute GoodsCommentSaveDTO goodsCommentSaveDTO) {
+    public @ResponseBody
+    List<GoodsCommentDetailDTO> save (@ModelAttribute GoodsCommentSaveDTO goodsCommentSaveDTO) {
         System.out.println("댓글이 넘어오나요?1");
         Long goodsCommentId = gcs.save(goodsCommentSaveDTO);
         List<GoodsCommentDetailDTO> goodsCommentList = gcs.findAll(goodsCommentSaveDTO.getGoodsId());

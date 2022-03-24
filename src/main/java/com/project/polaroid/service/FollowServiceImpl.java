@@ -69,4 +69,10 @@ public class FollowServiceImpl implements FollowService{
         return "삭제 되었습니다.";
     }
 
+    // 팔로우 버튼을 위찬 체크
+    @Override
+    public int followCheck(Long myId, Long memberId) {
+        return followRepository.find(myId,memberId);
+    }
+
 }

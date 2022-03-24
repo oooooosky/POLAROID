@@ -16,8 +16,9 @@
     border-radius: 4px;
 }
 .shop_list_table > thead > tr > th {
-    font-size: 14px;
+    font-size: 18px;
     text-align: center;
+    font-weight: bold;
     color: #666;
 }
 .shop_list_table > tbody > tr > td {

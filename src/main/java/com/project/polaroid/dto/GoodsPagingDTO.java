@@ -22,6 +22,7 @@ public class GoodsPagingDTO {
     private int goodsStock;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+    private String goodsFilename;
     private List<GoodsPhotoDetailDTO> photoList;
 
 }

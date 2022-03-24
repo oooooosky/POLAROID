@@ -31,6 +31,8 @@
     height: 80px;
     border: none;
     padding: 0;
+    border-radius: 70%;
+    overflow: hidden;
 }
 .input_profile_btn {
     width: 30px;
@@ -105,4 +107,30 @@
 }
 .memberUpdate_delete_btn:hover {
     font-weight: bold;
+}
+.memberUpdate_box_3 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.result_update {
+    margin-left: 80px;
+    margin-bottom: 15px;
+}
+
+.memberUpdate_profile22 {
+    padding-top: 15px;
+    font-size: 30px;
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 70%;
+    background-color:#FF5C8D ;
+    color: white;
+    overflow: hidden;
+}
+
+.memberUpdate_box_22 {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 25px;
 }

@@ -8,6 +8,7 @@ server:
       force: true
 
 spring:
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/Polaroid?serverTimezone=Asia/Seoul
@@ -29,10 +30,21 @@ spring:
           timeout: 5000
           writetimeout: 5000
 
+  devtools:
+    livereload:
+      enabled: true
+    remote:
+      restart:
+        enabled: true
+  thyleaf:
+    cache: false
+
   servlet:
     multipart:
-      maxFileSize: 50MB
-      maxRequestSize: 50MB
+      max-file-size:
+        50MB
+      max-request-size:
+        50MB
 
   jpa:
     hibernate:

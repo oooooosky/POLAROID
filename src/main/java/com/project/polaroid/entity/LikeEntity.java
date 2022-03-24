@@ -16,10 +16,12 @@ public class LikeEntity {
     @Column(name = "like_id")
     private Long id;
 
+    // 해당 게시글
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardId;
 
+    // 좋아요 누른사람
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberId;

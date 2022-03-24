@@ -1,11 +1,10 @@
 package com.project.polaroid.dto;
 
-import com.project.polaroid.entity.PhotoEntity;
+import com.project.polaroid.entity.BoardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,5 +16,6 @@ public class BoardPagingDTO {
     private String memberNickname;
     private String boardContents;
     private List<PhotoDetailDTO> photoList;
+
 
 }

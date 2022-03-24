@@ -23,12 +23,12 @@
     vertical-align: middle;
 }
 .shop_my_detail_img_box {
-    width: 100%;
-    height: 600px;
+    /*width: 100%;*/
+    /*height: 600px;*/
 }
 .shop_my_detail_img {
     width: 600px;
-    height: 600px;
+    height: auto;
     object-fit: contain;
 }
 

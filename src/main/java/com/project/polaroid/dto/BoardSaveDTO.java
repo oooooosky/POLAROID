@@ -14,7 +14,6 @@ public class BoardSaveDTO {
 
     private Long memberId;
     private String boardContents;
-
     private List<MultipartFile> boardFile;
 
 }

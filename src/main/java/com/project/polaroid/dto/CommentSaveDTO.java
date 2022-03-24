@@ -11,7 +11,6 @@ public class CommentSaveDTO {
 
     private Long memberId;
     private Long boardId;
-
     private String commentContents;
 
 }

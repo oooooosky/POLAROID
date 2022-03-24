@@ -19,11 +19,11 @@
     <title>POLAROID</title>
 </head>
 <body>
-
+<!-- header -->
 <div class="header">
     <div class="max_box_2 vertical_box">
         <div class="header_logo vertical_mid">
-            <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/'"/>
+            <img class="header_logo_img" src="/image/logo_white.png" onclick="location.href='/'" />
         </div>
         <div class="header_search_box vertical_mid">
             <form action="/goods/search" method="get" class="text-center">
@@ -36,62 +36,114 @@
                     <button type="submit"> <img class="header_search_btn_img" src="/image/search.png"/> </button>
                 </div>
             </form>
-        </div>
-        <div class="header_right vertical_mid">
-            <!-- 채팅 -->
-            <div class="header_chat">
-                <img class="header_chat_img" src="/image/chat.png"/>
             </div>
-            <!-- 좋아요 모아보기 -->
-            <div class="header_like">
-                <a th:href="@{|/goods/pick/${memberId}|}"> <img class="header_like_img" src="/image/like.png"/> </a>
-            </div>
-            <!-- 사용자 정보 -->
-            <div class="header_user" id="userToggleButton">
-                <img class="header_user_img" src="/image/user_default.png"/>
+        <div class="header_right vertical_mid" >
+            <div class="dis_flex header_right_box" th:if="${session['LoginEmail']} != null">
+                <!-- 채팅 -->
+                <div class="header_chat_box flex-grow-1">
+                    <div class="header_chat ">
+                        <img class="far fa-envelope icon-badge-icon header_chat_img" src="/image/chat.png" onclick="location.href='/chat'"/>
+                        <div class="icon-badge" th:if="${member.memberMessage>0}"><p th:text="${member.memberMessage}"> </p></div>
+                    </div>
+                </div>
+                <!-- 좋아요 모아보기 -->
+                <div class="header_like flex-grow-1">
+                    <a th:href="@{|/goods/pick/${memberId}|}"> <img class="header_like_img" src="/image/star.png"/> </a>
+                </div>
+                <!-- 사용자 정보 -->
+                <div class="header_user flex-grow-1" id="userToggleButton">
+                    <img class="header_user_img" th:src="@{|/profile/${member.memberFilename}|}"/>
+                </div>
             </div>
             <div class="header_user_toggle_box" id="userToggleMenu">
-                <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/my_page'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="마이페이지" onclick="location.href='/member/mypage'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="SNS" onclick="location.href='/board/'"/>
                 <input class="header_user_toggle_btn fs_14" type="button" value="결제리스트" onclick="location.href='/goods/payList'"/>
+                <input class="header_user_toggle_btn fs_14" type="button" value="내 쇼핑몰" th:if="${member.memberRole == 'ROLE_SELLER'}" th:onclick="'location.href=\''+ @{|/goods/list/${session.LoginNumber}|} + '\''"/>
                 <button type="button" class="header_user_toggle_btn fs_14" id="show" data-bs-toggle="modal" data-bs-target="#exampleModal">로그아웃</button>
             </div>
-
         </div>
     </div>
 </div>
 
-<!-- 로그아웃 모달 -->
+<!-- 로그아웃 모달창 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+        <div class="modal-content p_30 bg_ef">
+            <div class="modal-body fs_16 text_center fw_b">
                 로그아웃 하시겠습니까?
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" onclick="modalLogout()">로그아웃</button>
+            <div class="modal-footer border_none modal_btn_box">
+                <button type="button" class="btn btn-secondary flex-grow-1 bg_ccc logout_modal_btn logout_modal_btn_cancel" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary flex-grow-1 bg_524A4E logout_modal_btn logout_modal_btn_okay" onclick="modalLogout()">로그아웃</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 로그아웃 모달창 -->
+
+<!-- header -->
+
+<div class="contents2" style="height: auto;">
+    <div class="max_box_2 text_center pt_40">
+
+        <div class="card text-center" style="width: 50%; height: auto; margin: 0 auto;">
+            <div class="card">
+                <h2 class="mt-3 mb-3"><img src="/image/check2-circle.svg" style="width: 10%">결제완료</h2>
+            </div>
+            <div class="card-body text_left">
+                <div>
+                    <h2 class="text-center" th:text="${pay.memberNickname}+'님의 영수증'"></h2>
+                    <div class="title_bottom_line"></div>
+                    <br>
+                    <span class="mt_40"><h4>구매하신 물품 : <span class="card-text" th:text="${pay.goodsTitle}"></span></h4></span> <hr>
+                    <span class="mt-40"><h4>구매하신 물품 가격: <span class="card-text" th:text="${pay.goodsPrice}+'원'"></span></h4></span> <hr>
+                    <span class="mt-40"><h4>구매하신 물품 수량: <span class="card-text" th:text="${pay.count}+'개'"></span></h4></span> <hr>
+                    <span class="mt-40"><h4>구매하신 물품 총액: <span class="card-text" th:text="${pay.totalPrice}+'원'"></span></h4></span> <hr>
+                    <div class="text-center">
+                    <a href="/goods/" class="long_btn_3 signup_btn fs_16 fw_b text-center mt_40">돌아가기</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!--<table class="table">-->
+<!--    <thead class="table-dark">-->
+<!--    <h2><img src="/image/check2-circle.svg" style="width: 10%">결제완료</h2>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--        <th scope="row"> 구매하신 분 </th>-->
+<!--        <td> <h3 class="card-title" th:text="${pay.memberNickname}"></h3> </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th scope="row"> 구매하신 물품 </th>-->
+<!--        <td><h4 class="card-text" th:text="${pay.goodsTitle}"></h4></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th scope="row"> 구매하신 물품 수량 </th>-->
+<!--        <td><h4 class="card-text" th:text="${pay.count}"></h4></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th scope="row"> 구매하신 물품 가격 </th>-->
+<!--        <td><h4 class="card-text" th:text="${pay.goodsPrice}"></h4></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th scope="row"> 구매하신 물품 총액 </th>-->
+<!--        <td></h4> <h4 class="card-text" th:text="${pay.totalPrice}"></h4></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+
+<!--    <tfoot>-->
+<!--        <th scope="row"> </th>-->
+<!--        <td><a href="/goods/" class="long_btn_3 signup_btn fs_16 fw_b">돌아가기</a></td>-->
+<!--    </tfoot>-->
+<!--</table>-->
 
 
 
-<div class="container text-center" style="bottom: 40%">
-    <h2><img src="/image/check2-circle.svg" style="width: 10%">결제성공</h2>
-    <span th:text="${pay.payId}"></span>
-    <span th:text="${pay.goodsId}"></span>
-    <span th:text="${pay.memberId}"></span>
-    <span th:text="${pay.memberNickname}"></span>
-    <span th:text="${pay.goodsTitle}"></span>
-    <span th:text="${pay.goodsPrice}"></span>
-    <span th:text="${pay.count}"></span>
-    <span th:text="${pay.totalPrice}"></span>
-</div>
+
 </body>
 </html>

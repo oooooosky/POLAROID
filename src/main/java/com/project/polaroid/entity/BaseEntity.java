@@ -11,17 +11,18 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class) // 자식 Entity 즉 상속받은 Entity 클래스가 무슨 기능을 수행하는지 감지하는 어노테이션
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 public abstract class BaseEntity {
-    // abstract : 추상 클래스
 
-    @CreationTimestamp // create 즉 insert가 수행된 시간
-    @Column(updatable = false) // update 할 때 값이 들어가지 않게
-    private LocalDateTime createTime; // insert 수행한 시간.
+    // 생성시간
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createTime;
 
-    @UpdateTimestamp // update 즉 update가 수행된 시간
-    @Column(insertable = false) // insert 할 때 값이 들어가지 않게
-    private LocalDateTime updateTime; // update 수행한 시간.
+    // 업데이트 시간
+    @UpdateTimestamp
+    @Column(insertable = false)
+    private LocalDateTime updateTime;
 
 }

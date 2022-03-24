@@ -15,5 +15,7 @@ public class GoodsUpdateDTO {
     private int goodsStock;
     private int goodsPrice;
     private String goodsContents;
+    private String goodsInFor;
+
 
 }

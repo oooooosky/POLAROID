@@ -29,5 +29,6 @@ public interface GoodsRepository extends JpaRepository<GoodsEntity, Long> {
     void stockDown(Long goodsId, int count);
 
     List<GoodsEntity> findAllByOrderByIdDesc();
+
 }
 

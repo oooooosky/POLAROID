@@ -19,7 +19,8 @@ public class ScrollController {
     private final BoardService bs;
 
     @GetMapping
-    public @ResponseBody Page<BoardPagingDTO> paging(Pageable pageable, Model model) {
+    public @ResponseBody
+    Page<BoardPagingDTO> paging(Pageable pageable, Model model) {
         Page<BoardPagingDTO> boardList = bs.paging(pageable);
 
         System.out.println("boardList.getContent() = " + boardList.getContent()); // 요청 페이지에 들어있는 데이터, toString이 없기 때문에 주소값이 출력
@@ -47,3 +48,4 @@ public class ScrollController {
     }
 
 }
+

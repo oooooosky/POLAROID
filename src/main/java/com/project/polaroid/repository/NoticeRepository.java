@@ -17,4 +17,6 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
     @Query(value = "delete from notice_table a where a.notice_member= :memberId and a.notice_room= :chatRoomId and notice_message=:message", nativeQuery=true)
     void deleteCount(Long chatRoomId, Long memberId, String message);
 
+    @Query(value = "SELECT count(a) FROM NoticeEntity a WHERE a.noticeMember= :memberId and a.noticeRoom= :roomId")
+    int countRoom(Long memberId, Long roomId);
 }

@@ -27,17 +27,17 @@
                         일반 로그인
                     </p>
                     <form action="/login" method="post">
-                    <div class="input_box">
-                        <p class="general_login_text fs_14">이메일</p>
-                        <input class="general_login_input fs_14" type="text" name="memberEmail" placeholder="이메일"/>
-                    </div>
-                    <div class="input_box">
-                        <p class="general_login_text fs_14">비밀번호</p>
-                        <input class="general_login_input fs_14" type="text" name="memberPw" placeholder="비밀번호"/>
-                    </div>
-                    <div class="general_login_btn_box">
-                        <button class="general_login_btn">로그인</button>
-                    </div>
+                        <div class="input_box">
+                            <p class="general_login_text fs_14">아이디</p>
+                            <input class="general_login_input fs_14" type="text" name="memberEmail"/>
+                        </div>
+                        <div class="input_box">
+                            <p class="general_login_text fs_14">비밀번호</p>
+                            <input class="general_login_input fs_14" type="password" name="memberPw"/>
+                        </div>
+                        <div class="general_login_btn_box">
+                            <button class="general_login_btn">로그인</button>
+                        </div>
                     </form>
                     <div class="general_login_bottom">
                         <input class="general_login_bottom_find_pw_btn" type="button" value="비밀번호를 잊어버렸나요?" onclick="location.href='/lostPassword'" />
@@ -46,56 +46,56 @@
                 </div>
                 <!-- 간편 로그인 -->
                 <div class="easy_login_area">
-                    <p class="login_area_name">
+                    <p class="login_area_name mb-5">
                         간편 로그인
                     </p>
                     <div class="easy_login_box">
                         <div class="easy_login_contents">
                             <a href="/oauth2/authorization/naver">
-                            <div class="easy_login_contents_img_box" style="background-color: #1ec800">
-                                <img class="easy_login_contents_img" src="/image/naver.png" />
-                            </div>
+                                <div class="easy_login_contents_img_box" style="background-color: #1ec800">
+                                    <img class="easy_login_contents_img" src="/image/naver.png" />
+                                </div>
                             </a>
                             <a href="/oauth2/authorization/naver">
-                            <div class="easy_login_contents_name_box" style="background-color: #1ec800">
-                                <label class="easy_login_contents_name" style="color: hsla(0,0%,100%,.8)">NAVER</label>
-                            </div>
+                                <div class="easy_login_contents_name_box" style="background-color: #1ec800">
+                                    <label class="easy_login_contents_name" style="color: hsla(0,0%,100%,.8)">NAVER</label>
+                                </div>
                             </a>
                         </div>
                         <div class="easy_login_contents">
                             <a href="/oauth2/authorization/kakao">
-                            <div class="easy_login_contents_img_box" style="background-color: #ffeb00">
-                                <img class="easy_login_contents_img" src="/image/kakaotalk.png" />
-                            </div>
+                                <div class="easy_login_contents_img_box" style="background-color: #ffeb00">
+                                    <img class="easy_login_contents_img" src="/image/kakaotalk.png" />
+                                </div>
                             </a>
                             <a href="/oauth2/authorization/kakao">
-                            <div class="easy_login_contents_name_box" style="background-color: #ffeb00">
-                                <label class="easy_login_contents_name">KAKAOTALK</label>
-                            </div>
+                                <div class="easy_login_contents_name_box" style="background-color: #ffeb00">
+                                    <label class="easy_login_contents_name" style="color: #391d1d">KAKAOTALK</label>
+                                </div>
                             </a>
                         </div>
                         <div class="easy_login_contents">
                             <a href="/oauth2/authorization/google">
-                            <div class="easy_login_contents_img_box">
-                                <img class="easy_login_contents_img" src="/image/google.png" />
-                            </div>
+                                <div class="easy_login_contents_img_box">
+                                    <img class="easy_login_contents_img" src="/image/google.png" />
+                                </div>
                             </a>
                             <a href="/oauth2/authorization/google">
-                            <div class="easy_login_contents_name_box">
-                                <label class="easy_login_contents_name">GOOGLE</label>
-                            </div>
+                                <div class="easy_login_contents_name_box">
+                                    <label class="easy_login_contents_name" style="color: #1F1F1F">GOOGLE</label>
+                                </div>
                             </a>
                         </div>
                         <div class="easy_login_contents">
                             <a href="/oauth2/authorization/facebook">
-                            <div class="easy_login_contents_img_box" style="background-color: #475993">
-                                <img class="easy_login_contents_img" src="/image/facebook.png" />
-                            </div>
+                                <div class="easy_login_contents_img_box" style="background-color: #475993">
+                                    <img class="easy_login_contents_img" src="/image/facebook.png" />
+                                </div>
                             </a>
                             <a href="/oauth2/authorization/facebook">
-                            <div class="easy_login_contents_name_box" style="background-color: #475993">
-                                <label class="easy_login_contents_name" style="color: #fff;">FACEBOOK</label>
-                            </div>
+                                <div class="easy_login_contents_name_box" style="background-color: #475993">
+                                    <label class="easy_login_contents_name" style="color: #fff;">FACEBOOK</label>
+                                </div>
                             </a>
                         </div>
                     </div>

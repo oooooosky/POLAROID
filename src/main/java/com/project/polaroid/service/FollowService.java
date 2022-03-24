@@ -4,6 +4,7 @@ import com.project.polaroid.dto.FollowAddDTO;
 import com.project.polaroid.entity.FollowEntity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface FollowService {
@@ -22,4 +23,7 @@ public interface FollowService {
 
     // 팔로우 취소
     String followDelete(FollowAddDTO followAdd);
+
+    // 팔로우 버튼 체크
+    int followCheck(Long myId, Long memberId);
 }

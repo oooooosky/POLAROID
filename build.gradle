@@ -27,7 +27,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'     // websocket
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // oauth
     implementation 'org.springframework.boot:spring-boot-starter-mail'          // mail
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'      // security
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'     // websocket
+    implementation 'org.webjars:sockjs-client:1.5.1'                            // SockJS
+    implementation 'org.webjars:stomp-websocket:2.3.4'                          // STOMP
+    implementation 'org.webjars.bower:jquery:3.6.0'                             // Jquery
     compileOnly 'org.projectlombok:lombok'                                      // lombok
     developmentOnly 'org.springframework.boot:spring-boot-devtools'             // devtools
     runtimeOnly 'mysql:mysql-connector-java'
@@ -36,6 +40,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
